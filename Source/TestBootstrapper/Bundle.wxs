@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:net="http://schemas.microsoft.com/wix/NetFxExtension">
+	<Bundle Name="TestBootstrapper" Version="1.0.0.0" Manufacturer="Max" UpgradeCode="d66af14b-ba4c-4161-8e0c-66ef2ce2c999">
+    <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost">
+      <Payload SourceFile="BootstrapperCore.config"/>
+      <Payload SourceFile="$(var.MaxBootstrap.Core.TargetPath)"/>
+      <Payload SourceFile="$(var.MaxBootstrapper.Test.UI.TargetPath)"/>
+    </BootstrapperApplicationRef>
+
+    <Chain>
+      <PackageGroupRef Id="NetFx45Web"/>
+      <MsiPackage SourceFile="$(var.TestMSI.TargetPath)" EnableFeatureSelection="yes"/>
+		</Chain>
+	</Bundle>
+</Wix>
