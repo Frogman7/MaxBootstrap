@@ -6,13 +6,13 @@ namespace MaxBootstrap.Core.Pages
 {
     public class PageController : ObservableBase, IPageController
     {
-        private PageCollection pageCollection;
-
         private IList<IPage> sequence;
 
         private IPage currentPage;
 
         private ushort sequenceIndex;
+
+        public ButtonStateManager ButtonStateManager { get; protected set; }
 
         public IPage CurrentPage
         {
@@ -33,6 +33,7 @@ namespace MaxBootstrap.Core.Pages
         public PageController(PageCollection pageCollection)
         {
             this.CurrentPage = pageCollection.StartPage;
+            this.ButtonStateManager = new ButtonStateManager();
         }
 
         public void GoBack()
@@ -43,7 +44,7 @@ namespace MaxBootstrap.Core.Pages
             }
             else if (this.sequenceIndex == 0)
             {
-                this.CurrentPage = this.pageCollection.StartPage;
+                this.CurrentPage = this.PageCollection.StartPage;
             }
 
             // TODO Throw error of some kind on else condition
@@ -61,22 +62,27 @@ namespace MaxBootstrap.Core.Pages
 
         public void StartInstallSequence()
         {
-            this.StartSequence(this.pageCollection.InstallSequence);
+            this.StartSequence(this.PageCollection.InstallSequence);
         }
 
         public void StartUpgradeSequence()
         {
-            this.StartSequence(this.pageCollection.UpgradeSequence);
+            this.StartSequence(this.PageCollection.UpgradeSequence);
         }
 
         public void StartModifySequence()
         {
-            this.StartSequence(this.pageCollection.ModifySequence);
+            this.StartSequence(this.PageCollection.ModifySequence);
         }
 
         public void StartRepairSequence()
         {
-            this.StartSequence(this.pageCollection.RepairSequence);
+            this.StartSequence(this.PageCollection.RepairSequence);
+        }
+
+        public void GoToErrorPage()
+        {
+            this.CurrentPage = this.PageCollection.ErrorPage;
         }
 
         private void StartSequence(IEnumerable<IPage> sequence)
@@ -85,7 +91,7 @@ namespace MaxBootstrap.Core.Pages
 
             this.sequence = sequence.ToList();
 
-            this.currentPage = this.sequence[0];
+            this.CurrentPage = this.sequence[0];
         }
     }
 }

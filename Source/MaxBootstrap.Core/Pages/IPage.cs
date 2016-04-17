@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MaxBootstrap.Core.View;
+using System.Windows;
 
 namespace MaxBootstrap.Core
 {

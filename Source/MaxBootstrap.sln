@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0DC71E74
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap.Core.UnitTests", "Bootstrap.Core.UnitTests\Bootstrap.Core.UnitTests.csproj", "{BDE25C5C-9C46-4D24-8788-78614150113C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxBootstrap.UI", "MaxBootstrap.UI\MaxBootstrap.UI.csproj", "{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,14 @@ Global
 		{BDE25C5C-9C46-4D24-8788-78614150113C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BDE25C5C-9C46-4D24-8788-78614150113C}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDE25C5C-9C46-4D24-8788-78614150113C}.Release|x86.Build.0 = Release|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Debug|x86.Build.0 = Debug|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Release|x86.ActiveCfg = Release|Any CPU
+		{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

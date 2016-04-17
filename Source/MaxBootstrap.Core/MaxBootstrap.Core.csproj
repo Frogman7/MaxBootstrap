@@ -43,6 +43,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,6 +65,7 @@
     <Compile Include="Enums\BurnInstallationState.cs" />
     <Compile Include="Enums\FeatureEnums.cs" />
     <Compile Include="Enums\FeatureSelectedState.cs" />
+    <Compile Include="Enums\InstallationResult.cs" />
     <Compile Include="Helpers\PackageFeatureTreeBuilder.cs" />
     <Compile Include="IBundle.cs" />
     <Compile Include="Packages\Features\Feature.cs" />
@@ -72,10 +74,10 @@
     <Compile Include="Packages\IPackageManager.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Packages\PackageManager.cs" />
-    <Compile Include="View\BootstrapperMainWindowBase.cs" />
+    <Compile Include="View\IView.cs" />
     <Compile Include="IBootstrapperController.cs" />
-    <Compile Include="View\BootstrapperMainWindowViewmodel.cs" />
-    <Compile Include="View\IBootstrapperMainWindow.cs" />
+    <Compile Include="View\MainWindow\BootstrapperMainWindowViewmodel.cs" />
+    <Compile Include="View\MainWindow\IBootstrapperMainWindowView.cs" />
     <Compile Include="MaxBootstrapper.cs" />
     <Compile Include="Pages\ButtonState.cs" />
     <Compile Include="Pages\ButtonStateManager.cs" />
@@ -86,7 +88,9 @@
     <Compile Include="Pages\PageCollection.cs" />
     <Compile Include="Pages\PageController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\IBootstrapperMainWindowViewmodel.cs" />
+    <Compile Include="View\MainWindow\IBootstrapperMainWindowViewmodel.cs" />
+    <Compile Include="View\IViewmodel.cs" />
+    <Compile Include="View\ViewmodelBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

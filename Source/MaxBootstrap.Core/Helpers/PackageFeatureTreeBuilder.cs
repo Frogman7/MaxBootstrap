@@ -23,13 +23,13 @@ namespace MaxBootstrap.Core.Helpers
 
         private IPackage ProcessPackage(PackageInfo packageInfo, IEnumerable<FeatureInfo> featureInfos)
         {
-            IPackage package = new Package(packageInfo.Id);
+            IPackage package = new Package(packageInfo.Id, packageInfo.DisplayName);
 
             IDictionary<string, IFeature> featureDictionary = new Dictionary<string, IFeature>();
 
             foreach (var featureInfo in featureInfos)
             {
-                featureDictionary.Add(featureInfo.FeatureId, new Feature(featureInfo.FeatureId, featureInfo.Title, featureInfo.Description, featureInfo.Size));
+                featureDictionary.Add(featureInfo.FeatureId, new Feature(featureInfo.FeatureId, featureInfo.Title, featureInfo.Description, featureInfo.Size, featureInfo.Display));
             }
 
             foreach (var featureInfo in featureInfos)

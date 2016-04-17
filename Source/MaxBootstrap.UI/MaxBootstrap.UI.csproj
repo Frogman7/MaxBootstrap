@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0E220FEF-4F0F-4AE9-A1C6-0172C8D9CE12}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MaxBootstrap.UI</RootNamespace>
+    <AssemblyName>MaxBootstrap.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BootstrapperCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\WiX Toolset v3.10\SDK\BootstrapperCore.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttachedProperties\RichTextBoxAssistant.cs" />
+    <Compile Include="Converters\DisplayToIsExpandedBooleanConverter.cs" />
+    <Compile Include="Converters\DisplayToVisibilityConverter.cs" />
+    <Compile Include="Converters\FeatureStateToNullableBoolConverter.cs" />
+    <Compile Include="Pages\ConfigurationPage.cs" />
+    <Compile Include="Pages\ErrorPage.cs" />
+    <Compile Include="Pages\FeaturePage.cs" />
+    <Compile Include="Pages\FinishPage.cs" />
+    <Compile Include="Pages\OptionPage.cs" />
+    <Compile Include="Pages\ProgressPage.cs" />
+    <Compile Include="Pages\WelcomePage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Viewmodels\Concretes\CancelViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\ConfigurationViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\ErrorViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\FeatureViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\FinishViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\ICancelViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IConfigurationViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IErrorViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IFeatureViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IFinishViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IOptionViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IProgressViewmodel.cs" />
+    <Compile Include="Viewmodels\Interfaces\IWelcomeViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\OptionViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\ProgressViewmodel.cs" />
+    <Compile Include="Viewmodels\Concretes\WelcomeViewmodel.cs" />
+    <Compile Include="Views\CancelView.xaml.cs">
+      <DependentUpon>CancelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfigurationView.xaml.cs">
+      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeatureView.xaml.cs">
+      <DependentUpon>FeatureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FinishView.xaml.cs">
+      <DependentUpon>FinishView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OptionView.xaml.cs">
+      <DependentUpon>OptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgressView.xaml.cs">
+      <DependentUpon>ProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MaxBootstrap.Core\MaxBootstrap.Core.csproj">
+      <Project>{3a3ef4bd-9521-407c-ac79-e734f3b811e2}</Project>
+      <Name>MaxBootstrap.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\CancelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeatureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FinishView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProgressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WelcomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

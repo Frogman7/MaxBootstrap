@@ -6,6 +6,8 @@ namespace MaxBootstrap.Core
     {
         PageCollection PageCollection { get; }
 
+        ButtonStateManager ButtonStateManager { get; }
+
         IPage CurrentPage { get; }
 
         void GoNext();
@@ -19,5 +21,7 @@ namespace MaxBootstrap.Core
         void StartModifySequence();
 
         void StartRepairSequence();
+
+        void GoToErrorPage();
     }
 }

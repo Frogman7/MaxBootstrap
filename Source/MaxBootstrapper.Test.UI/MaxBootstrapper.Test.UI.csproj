@@ -104,6 +104,10 @@
       <Project>{3a3ef4bd-9521-407c-ac79-e734f3b811e2}</Project>
       <Name>MaxBootstrap.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MaxBootstrap.UI\MaxBootstrap.UI.csproj">
+      <Project>{0e220fef-4f0f-4ae9-a1c6-0172c8d9ce12}</Project>
+      <Name>MaxBootstrap.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

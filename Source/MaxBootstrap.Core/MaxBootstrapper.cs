@@ -4,17 +4,18 @@ using MaxBootstrap.Core.Pages;
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using System;
 using System.Diagnostics;
-using System.Reflection;
-using System.Windows;
 using System.Windows.Threading;
 using System.Linq;
 using System.Configuration;
+using System.Windows;
 
 namespace MaxBootstrap.Core
 {
     public class MaxBootstrapper : BootstrapperApplication
     {
-        private BootstrapperMainWindowBase mainWindow;
+        public Dispatcher BootstrapperDispatcher { get; protected set; }
+
+        private Window mainWindow;
 
         protected override void Run()
         {
@@ -22,6 +23,8 @@ namespace MaxBootstrap.Core
             Debugger.Launch();
 #endif
             
+            this.BootstrapperDispatcher = Dispatcher.CurrentDispatcher;
+
             this.mainWindow = ResolveMainWindow();
 
             this.Engine.Log(LogLevel.Verbose, "Starting MaxBootstrapper");
@@ -40,21 +43,31 @@ namespace MaxBootstrap.Core
 
             Dispatcher.Run();
 
-            this.Engine.Quit(mainWindow.Viewmodel.BootstrapperController.FinalResult);
+            var bootstrapperMainWindow = this.mainWindow as IBootstrapperMainWindow;
+
+            // Figured there should be a null check here even though it should be theoretically impossible to ever not be null
+            if (bootstrapperMainWindow != null)
+            {
+                this.Engine.Quit(bootstrapperMainWindow.Viewmodel.BootstrapperController.FinalResult);
+            }
+            else
+            {
+                this.Engine.Quit(-1);
+            }
         }
 
-        private BootstrapperMainWindowBase ResolveMainWindow()
+        private Window ResolveMainWindow()
         {
             string assemblyName = this.GetSetting("MaxBootstrapperUI");
 
             var asm = AppDomain.CurrentDomain.Load(assemblyName);
 
             // TODO Add some error check and log it if it should fail to find a type inheriting from the base
-            var type = asm.GetTypes().First(t => t.IsSubclassOf(typeof(BootstrapperMainWindowBase)));
+            var type = asm.GetTypes().First(t => t.IsSubclassOf(typeof(IBootstrapperMainWindow)));
 
             var bootstrapperController = new BootstrapperController(this, new PageController(new PageCollection()), new PackageManager());
 
-            return (BootstrapperMainWindowBase)Activator.CreateInstance(type, new object[] { bootstrapperController });
+            return (Window)Activator.CreateInstance(type, new object[] { bootstrapperController });
         }
 
         private string GetSetting(string key)

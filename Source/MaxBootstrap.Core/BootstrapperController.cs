@@ -2,6 +2,7 @@
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using MaxBootstrap.Core.Enums;
 using MaxBootstrap.Core.Packages;
+using MaxBootstrap.Core.Pages;
 
 namespace MaxBootstrap.Core
 {
@@ -11,9 +12,18 @@ namespace MaxBootstrap.Core
 
         public IPageController PageController { get; protected set; }
 
+        public ButtonStateManager ButtonStateManager { get; protected set; }
+
+        public bool RestartRequired { get; protected set; }
         public MaxBootstrapper WixBootstrapper { get; protected set; }
 
         public int FinalResult { get; protected set; }
+
+        public string Error { get; protected set;  }
+
+        public bool Cancelled { get; protected set; }
+
+        public InstallationResult InstallationResult { get; protected set; }
 
         public IPackageManager PackageManager { get; protected set; }
 
@@ -23,28 +33,28 @@ namespace MaxBootstrap.Core
             this.PageController = pageController;
             this.PackageManager = packageManager;
 
-            WixBootstrapper.Elevate += (sender, eventArgs) => this.elevate(eventArgs);
-            WixBootstrapper.Error += (sender, eventArgs) => this.error(eventArgs);
-            WixBootstrapper.Shutdown += (sender, eventArgs) => this.shutdown(eventArgs);
+            this.WixBootstrapper.Elevate += (sender, eventArgs) => this.elevate(eventArgs);
+            this.WixBootstrapper.Error += (sender, eventArgs) => this.error(eventArgs);
+            this.WixBootstrapper.Shutdown += (sender, eventArgs) => this.shutdown(eventArgs);
 
-            WixBootstrapper.ResolveSource += (sender, eventArgs) => this.resolveSource(eventArgs);
-            WixBootstrapper.DetectBegin += (sender, eventArgs) => this.detectBegin(eventArgs);
-            WixBootstrapper.DetectRelatedBundle += (sender, eventArgs) => this.detectRelatedBundle(eventArgs);
-            WixBootstrapper.DetectCompatiblePackage += (sender, eventArgs) => this.detectCompatiblePackage(eventArgs);
-            WixBootstrapper.DetectPriorBundle += (sender, eventArgs) => this.detectPriorBundle(eventArgs);
-            WixBootstrapper.DetectPackageBegin += (sender, eventArgs) => this.detectPackageBegin(eventArgs);
-            WixBootstrapper.DetectUpdate += (sender, eventArgs) => this.detectUpdate(eventArgs);
-            WixBootstrapper.DetectMsiFeature += (sender, eventArgs) => this.detectMsiFeature(eventArgs);
-            WixBootstrapper.DetectPackageComplete += (sender, eventArgs) => this.detectPackageComplete(eventArgs);
+            this.WixBootstrapper.ResolveSource += (sender, eventArgs) => this.resolveSource(eventArgs);
+            this.WixBootstrapper.DetectBegin += (sender, eventArgs) => this.detectBegin(eventArgs);
+            this.WixBootstrapper.DetectRelatedBundle += (sender, eventArgs) => this.detectRelatedBundle(eventArgs);
+            this.WixBootstrapper.DetectCompatiblePackage += (sender, eventArgs) => this.detectCompatiblePackage(eventArgs);
+            this.WixBootstrapper.DetectPriorBundle += (sender, eventArgs) => this.detectPriorBundle(eventArgs);
+            this.WixBootstrapper.DetectPackageBegin += (sender, eventArgs) => this.detectPackageBegin(eventArgs);
+            this.WixBootstrapper.DetectUpdate += (sender, eventArgs) => this.detectUpdate(eventArgs);
+            this.WixBootstrapper.DetectMsiFeature += (sender, eventArgs) => this.detectMsiFeature(eventArgs);
+            this.WixBootstrapper.DetectPackageComplete += (sender, eventArgs) => this.detectPackageComplete(eventArgs);
 
-            WixBootstrapper.ExecuteMsiMessage += (sender, eventArgs) => this.executeMsiMessage(eventArgs);
-            WixBootstrapper.RestartRequired += (sender, eventArgs) => this.restartRequired(eventArgs);
+            this.WixBootstrapper.ExecuteMsiMessage += (sender, eventArgs) => this.executeMsiMessage(eventArgs);
+            this.WixBootstrapper.RestartRequired += (sender, eventArgs) => this.restartRequired(eventArgs);
 
-            WixBootstrapper.ApplyBegin += (sender, eventArgs) => this.applyBegin(eventArgs);
-            WixBootstrapper.ExecuteFilesInUse += (sender, eventArgs) => this.executeFilesInUse(eventArgs);
-            WixBootstrapper.ExecutePackageBegin += (sender, eventArgs) => this.executePacakgeBegin(eventArgs);
-            WixBootstrapper.ExecutePackageComplete += (sender, eventArgs) => this.executePackageComplete(eventArgs);
-            WixBootstrapper.ApplyComplete += (sender, eventArgs) => this.applyComplete(eventArgs);
+            this.WixBootstrapper.ApplyBegin += (sender, eventArgs) => this.applyBegin(eventArgs);
+            this.WixBootstrapper.ExecuteFilesInUse += (sender, eventArgs) => this.executeFilesInUse(eventArgs);
+            this.WixBootstrapper.ExecutePackageBegin += (sender, eventArgs) => this.executePacakgeBegin(eventArgs);
+            this.WixBootstrapper.ExecutePackageComplete += (sender, eventArgs) => this.executePackageComplete(eventArgs);
+            this.WixBootstrapper.ApplyComplete += (sender, eventArgs) => this.applyComplete(eventArgs);
         }
 
         private void detectUpdate(DetectUpdateEventArgs eventArgs)
@@ -89,7 +99,25 @@ namespace MaxBootstrap.Core
 
         private void applyComplete(ApplyCompleteEventArgs eventArgs)
         {
-            // Handle restart and possible errors
+            this.RestartRequired = eventArgs.Restart == ApplyRestart.RestartRequired;
+
+            this.FinalResult = eventArgs.Status;
+
+            // TODO Handle Unknown state somehow?
+            if (this.InstallationResult == InstallationResult.Error ||
+                this.InstallationResult == InstallationResult.Cancelled)
+            {
+                this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.PageController.GoToErrorPage()));
+            }
+            else
+            {
+                if (eventArgs.Restart == ApplyRestart.RestartRequired)
+                {
+                    this.RestartRequired = true;
+                }
+
+                this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.PageController.GoNext()));
+            }
         }
 
         private void applyBegin(ApplyBeginEventArgs eventArgs)
@@ -141,7 +169,6 @@ namespace MaxBootstrap.Core
         /// </param>
         private void detectPackageBegin(DetectPackageBeginEventArgs eventArgs)
         {
-            var package = this.PackageManager.AddPackage(eventArgs.PackageId);
         }
 
         public event Action<string> OnCriticalError;
