@@ -17,3 +17,13 @@ Planned Features
 - Completed sample implementations that demonstrate practical application of the library
 - Lots of logging
 - More tests, significantly more tests
+
+## Design Notes
+The lack of a IoC or MVVM framework is not due to lack of experience but because I wanted to keep the dependencies to a minimum in order to keep the installers as small as possible.
+
+## Special Thanks
+I want to give credit where credit is due and these projects were the basis for my inspirate and ideas were taken from both.
+
+tpalacino on CodePlex (https://www.codeplex.com/site/users/view/tpalacino) for the WixWPF project (https://wixwpf.codeplex.com/)
+
+AntonKr on CodePlex (https://www.codeplex.com/site/users/view/AntonKr) for the Wix Bootstrapper Windows 8 Theme project (https://wixbootstrapper.codeplex.com/)
