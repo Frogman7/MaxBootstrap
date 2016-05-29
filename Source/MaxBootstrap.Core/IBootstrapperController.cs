@@ -15,6 +15,10 @@ namespace MaxBootstrap.Core
 
         bool Cancelled { get; }
 
+        bool UpgradeDetected { get; }
+
+        bool PreviouslyInstalled { get; }
+
         InstallationResult InstallationResult { get; }
 
         bool RestartRequired { get; }

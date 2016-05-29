@@ -11,7 +11,7 @@ namespace MaxBootstrapper.Test.UI
     /// </summary>
     public partial class MainWindow : IBootstrapperMainWindow
     {
-        private IBootstrapperController bootstrapperController;
+        private readonly IBootstrapperController bootstrapperController;
 
         public MainWindow(IBootstrapperController bootstrapperController)
         {
@@ -20,6 +20,8 @@ namespace MaxBootstrapper.Test.UI
             IBootstrapperMainWindowViewmodel viewModel = new BootstrapperMainWindowViewmodel(bootstrapperController);
 
             this.Viewmodel = viewModel;
+
+            this.InitializePageController();
 
             this.InitializeComponent();
         }
@@ -41,16 +43,16 @@ namespace MaxBootstrapper.Test.UI
         {
             var pageController = this.Viewmodel.BootstrapperController.PageController;
 
-            //pageController.PageCollection.CancelPage = new CancelP
-
-            IList<IPage> installPages = new List<IPage>();
-            installPages.Add(new OptionPage(this.bootstrapperController));
-            installPages.Add(new FeaturePage(this.bootstrapperController));
-            installPages.Add(new ProgressPage(this.bootstrapperController));
-            installPages.Add(new FinishPage(this.bootstrapperController));
+            pageController.PageCollection.RegisterPage(new OptionPage(this.bootstrapperController));
+            pageController.PageCollection.RegisterPage(new FeaturePage(this.bootstrapperController));
+            pageController.PageCollection.RegisterPage(new ProgressPage(this.bootstrapperController));
+            pageController.PageCollection.RegisterPage(new FinishPage(this.bootstrapperController));
 
             pageController.PageCollection.StartPage = new WelcomePage(this.bootstrapperController);
             pageController.PageCollection.ErrorPage = new ErrorPage(this.bootstrapperController);
+            pageController.PageCollection.CancelPage = new CancelPage(this.bootstrapperController);
+
+            pageController.PageCollection.SetInstallSequence(new List<string>() { "OptionPage", "FeaturePage", "ProgressPage", "FinishPage"});
         }
     }
 }

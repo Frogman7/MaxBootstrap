@@ -23,6 +23,9 @@ namespace MaxBootstrap.Core
 
         public bool Cancelled { get; protected set; }
 
+        public bool UpgradeDetected { get; protected set; }
+        public bool PreviouslyInstalled { get; protected set; }
+
         public InstallationResult InstallationResult { get; protected set; }
 
         public IPackageManager PackageManager { get; protected set; }

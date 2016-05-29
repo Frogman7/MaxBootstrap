@@ -1,16 +1,19 @@
-﻿using System.Windows.Controls;
-using MaxBootstrap.Core.View;
-
-namespace MaxBootstrap.UI.Views
+﻿namespace MaxBootstrap.UI.Views
 {
+    using System.Windows.Controls;
+    using Core.View;
+    using Viewmodels.Interfaces;
+
     /// <summary>
     /// Interaction logic for CancelView.xaml
     /// </summary>
     public partial class CancelView : UserControl, IView
     {
-        public CancelView()
+        public CancelView(ICancelViewmodel viewmodel)
         {
             this.InitializeComponent();
+
+            this.Viewmodel = viewmodel;
         }
 
         public IViewmodel Viewmodel

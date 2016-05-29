@@ -31,7 +31,7 @@ namespace MaxBootstrap.Core.Configuration.Loaders
                     result = (T)xmlSerializer.Deserialize(xmlReader);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 result = null;
             }

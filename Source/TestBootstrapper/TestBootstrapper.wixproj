@@ -42,6 +42,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\MaxBootstrap.UI\MaxBootstrap.UI.csproj">
+      <Name>MaxBootstrap.UI</Name>
+      <Project>{0e220fef-4f0f-4ae9-a1c6-0172c8d9ce12}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\MaxBootstrapper.Test.UI\MaxBootstrapper.Test.UI.csproj">
       <Name>MaxBootstrapper.Test.UI</Name>
       <Project>{3d363840-da72-4e3b-97dc-36cd9f2a2b06}</Project>

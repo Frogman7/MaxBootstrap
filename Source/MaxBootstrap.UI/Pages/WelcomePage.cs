@@ -24,5 +24,23 @@ namespace MaxBootstrap.UI.Pages
                 return this.WelcomeView;
             }
         }
+
+        public override void OnNavigatedTo()
+        {
+            var buttonManager = this.bootstrapperController.PageController.ButtonStateManager;
+            buttonManager.BackButton.Visible = false;
+            buttonManager.CancelButton.Visible = false;
+
+            if (!this.bootstrapperController.UpgradeDetected)
+            {
+                buttonManager.UpgradeButton.Visible = false;
+            }
+
+            if (!this.bootstrapperController.PreviouslyInstalled)
+            {
+                buttonManager.ModifyButton.Visible = false;
+                buttonManager.RepairButton.Visible = false;
+            }
+        }
     }
 }

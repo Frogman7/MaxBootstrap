@@ -56,6 +56,7 @@
     <Compile Include="Converters\DisplayToIsExpandedBooleanConverter.cs" />
     <Compile Include="Converters\DisplayToVisibilityConverter.cs" />
     <Compile Include="Converters\FeatureStateToNullableBoolConverter.cs" />
+    <Compile Include="Pages\CancelPage.cs" />
     <Compile Include="Pages\ConfigurationPage.cs" />
     <Compile Include="Pages\ErrorPage.cs" />
     <Compile Include="Pages\FeaturePage.cs" />

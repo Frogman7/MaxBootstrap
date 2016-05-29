@@ -1,4 +1,6 @@
-﻿namespace MaxBootstrap.Core.Pages
+﻿using System.Windows.Input;
+
+namespace MaxBootstrap.Core.Pages
 {
     public class ButtonState : ObservableBase
     {
@@ -49,6 +51,8 @@
                 this.NotifyPropertyChanged();
             }
         }
+
+        public ICommand Command { get; set; }
 
         public ButtonState(string text, bool enabled, bool visible)
         {

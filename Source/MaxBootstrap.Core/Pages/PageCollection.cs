@@ -29,6 +29,11 @@ namespace MaxBootstrap.Core.Pages
             this.repairSequence = new List<IPage>();
         }
 
+        public void RegisterPage(IPage page)
+        {
+            this.RegisterPage(typeof(IPage).Name, page);
+        }
+
         public void RegisterPage(string pageID, IPage page)
         {
             if (!this.pages.ContainsKey(pageID))

@@ -3,11 +3,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:base="clr-namespace:MaxBootstrap.Core;assembly=MaxBootstrap.Core"
-        xmlns:local="clr-namespace:MaxBootstrapper.Test.UI"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:view="clr-namespace:MaxBootstrap.Core.View;assembly=MaxBootstrap.Core"
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance view:IBootstrapperMainWindowViewmodel}"
+        Title="Installation Window" Height="400" Width="400">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" Content="{Binding CurrentPage}"/>
+        <ItemsControl ItemsSource="{Binding BootstrapperController.PageController.ButtonStateManager}" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding Command}" Content="{Binding Text}" 
+                            Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                            IsEnabled="{Binding Enabled}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="FontFamily" Value="Verdana"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Width" Value="100"/>
+                </Style>
+            </ItemsControl.Resources>
+            <!--<Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Text}" 
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Visible}"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Text}" 
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Visible}"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Text}" 
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Visible}"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Text}" 
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Visible}"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Text}" 
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Visible}"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Text}" 
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Visible}"/>-->
+        </ItemsControl>
     </Grid>
 </Window>

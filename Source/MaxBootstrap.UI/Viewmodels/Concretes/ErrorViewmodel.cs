@@ -9,10 +9,11 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         public ErrorViewmodel(IBootstrapperController bootstrapperController)
             : base(bootstrapperController)
         {
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Text = "Close";
-            this.ErrorMessageText = bootstrapperController.Error;
         }
 
-        public string ErrorMessageText { get; private set; }
+        public string ErrorMessageText
+        {
+            get { return this.BootstrapperController.Error; }
+        }
     }
 }

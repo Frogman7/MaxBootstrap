@@ -18,8 +18,6 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         public FinishViewmodel(IBootstrapperController bootstrapperController)
             : base(bootstrapperController)
         {
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Text = "Finish";
-
             this.FinishedText = "Installation Fished Successfully";
         }
     }

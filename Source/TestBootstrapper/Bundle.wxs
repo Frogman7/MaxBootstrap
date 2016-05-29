@@ -4,6 +4,7 @@
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost">
       <Payload SourceFile="BootstrapperCore.config"/>
       <Payload SourceFile="$(var.MaxBootstrap.Core.TargetPath)"/>
+      <Payload SourceFile="$(var.MaxBootstrap.UI.TargetPath)"/>
       <Payload SourceFile="$(var.MaxBootstrapper.Test.UI.TargetPath)"/>
     </BootstrapperApplicationRef>
 

@@ -25,6 +25,12 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         public WelcomeViewmodel(IBootstrapperController bootstrapperController)
             : base(bootstrapperController)
         {
+            this.InitializeButtons();
+        }
+
+        protected virtual void InitializeButtons()
+        {
+            
         }
     }
 }

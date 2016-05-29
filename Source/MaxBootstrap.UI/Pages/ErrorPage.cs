@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using MaxBootstrap.Core;
-using MaxBootstrap.Core.Pages;
-using MaxBootstrap.UI.Viewmodels.Concretes;
-using MaxBootstrap.UI.Views;
-
-namespace MaxBootstrap.UI.Pages
+﻿namespace MaxBootstrap.UI.Pages
 {
+    using System.Windows;
+    using Core;
+    using Core.Pages;
+    using Viewmodels.Concretes;
+    using Viewmodels.Interfaces;
+    using Views;
+
     public class ErrorPage : PageBase
     {
         protected ErrorView ErrorView;
@@ -23,6 +19,11 @@ namespace MaxBootstrap.UI.Pages
         public override FrameworkElement ViewContent
         {
             get { return this.ErrorView; }
+        }
+
+        public override void OnNavigatedTo()
+        {
+            this.bootstrapperController.PageController.ButtonStateManager.NextButton.Text = "Close";
         }
     }
 }

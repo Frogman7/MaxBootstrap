@@ -21,11 +21,11 @@
             this.ShouldSkip = false;
         }
 
-        public void OnNavigatedFrom()
+        public virtual void OnNavigatedFrom()
         {
         }
 
-        public void OnNavigatedTo()
+        public virtual void OnNavigatedTo()
         {
         }
     }

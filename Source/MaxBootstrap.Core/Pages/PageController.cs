@@ -18,6 +18,11 @@ namespace MaxBootstrap.Core.Pages
         {
             get
             {
+                if (this.currentPage == null)
+                {
+                    this.currentPage = this.PageCollection.StartPage;
+                }
+
                 return this.currentPage;
             }
 
@@ -32,6 +37,7 @@ namespace MaxBootstrap.Core.Pages
 
         public PageController(PageCollection pageCollection)
         {
+            this.PageCollection = pageCollection;
             this.CurrentPage = pageCollection.StartPage;
             this.ButtonStateManager = new ButtonStateManager();
         }

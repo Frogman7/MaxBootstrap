@@ -27,6 +27,7 @@ namespace MaxBootstrap.UI.AttachedProperties
 
         private static void FileChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
+            byte[] fileContents = null;
             var richTextbox = sender as RichTextBox;
             var path = (string)e.NewValue;
 
@@ -34,19 +35,26 @@ namespace MaxBootstrap.UI.AttachedProperties
             {
                 throw new ArgumentException("RichTextBox assistant can only be used with RichTextbox controls");
             }
-            else if (string.IsNullOrEmpty(path))
+
+            if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentException("The file path cannot be null or empty");
+                fileContents = Encoding.UTF8.GetBytes("No source file specified");
+                // TODO Log error
+                // throw new ArgumentException("The file path cannot be null or empty");
             }
-            else if (!System.IO.File.Exists(path))
+            else if (!File.Exists(path))
             {
-                throw new FileNotFoundException("Could not find the file at " + path);
+                fileContents = Encoding.UTF8.GetBytes("Source file could not be located");
+                // TODO Log error
+                //throw new FileNotFoundException("Could not find the file at " + path);
+            }
+            else
+            {
+                fileContents = File.ReadAllBytes(path);
             }
 
             var doc = new FlowDocument();
             var range = new TextRange(doc.ContentStart, doc.ContentEnd);
-
-            byte[] fileContents = System.IO.File.ReadAllBytes(path);
 
             using (var stream = new MemoryStream(fileContents))
             {

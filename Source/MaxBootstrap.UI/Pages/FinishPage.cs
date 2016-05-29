@@ -19,5 +19,10 @@ namespace MaxBootstrap.UI.Pages
         {
             get { return this.FinishView; }
         }
+
+        public override void OnNavigatedTo()
+        {
+            this.bootstrapperController.PageController.ButtonStateManager.NextButton.Text = "Finish";
+        }
     }
 }

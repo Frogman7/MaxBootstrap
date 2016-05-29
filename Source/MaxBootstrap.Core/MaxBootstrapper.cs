@@ -25,7 +25,7 @@ namespace MaxBootstrap.Core
             
             this.BootstrapperDispatcher = Dispatcher.CurrentDispatcher;
 
-            this.mainWindow = ResolveMainWindow();
+            this.mainWindow = this.ResolveMainWindow();
 
             this.Engine.Log(LogLevel.Verbose, "Starting MaxBootstrapper");
 
@@ -34,7 +34,7 @@ namespace MaxBootstrap.Core
                 this.Engine.Quit(0);
             };
 
-            // this.mainWindow.Show();
+            this.mainWindow.Show();
 
             this.Engine.Detect();
 
@@ -63,7 +63,7 @@ namespace MaxBootstrap.Core
             var asm = AppDomain.CurrentDomain.Load(assemblyName);
 
             // TODO Add some error check and log it if it should fail to find a type inheriting from the base
-            var type = asm.GetTypes().First(t => t.IsSubclassOf(typeof(IBootstrapperMainWindow)));
+            var type = asm.GetTypes().First(t => t.GetInterfaces().Contains(typeof(IBootstrapperMainWindow)));
 
             var bootstrapperController = new BootstrapperController(this, new PageController(new PageCollection()), new PackageManager());
 
