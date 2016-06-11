@@ -8,6 +8,8 @@
              d:DataContext="{d:DesignInstance interfaces:IOptionViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+            <Viewbox>
+                <TextBlock Text="Options Page"></TextBlock>
+            </Viewbox>
     </Grid>
 </UserControl>

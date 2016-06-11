@@ -14,6 +14,8 @@ namespace MaxBootstrap.Core.Pages
 
         private IList<IPage> repairSequence;
 
+        private IList<IPage> uninstallSequence; 
+
         public IPage StartPage { get; set; }
 
         public IPage ErrorPage { get; set; }
@@ -31,7 +33,7 @@ namespace MaxBootstrap.Core.Pages
 
         public void RegisterPage(IPage page)
         {
-            this.RegisterPage(typeof(IPage).Name, page);
+            this.RegisterPage(page.GetType().Name, page);
         }
 
         public void RegisterPage(string pageID, IPage page)
@@ -40,6 +42,8 @@ namespace MaxBootstrap.Core.Pages
             {
                 this.pages[pageID] = page;
             }
+
+            // TODO Throw exception or something
         }
 
         public void SetInstallSequence(IEnumerable<string> sequence)
@@ -93,6 +97,14 @@ namespace MaxBootstrap.Core.Pages
                 return this.repairSequence;
             }
         }
+
+        public IEnumerable<IPage> UninstallSequence
+        {
+            get
+            {
+                return this.uninstallSequence;
+            }
+        } 
 
         private void SetSequence(IEnumerable<string> sequence, IList<IPage> pageList)
         {

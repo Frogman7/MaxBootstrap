@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using MaxBootstrap.UI;
 
 namespace MaxBootstrap.Core.Pages
 {
@@ -40,17 +42,34 @@ namespace MaxBootstrap.Core.Pages
             this.PageCollection = pageCollection;
             this.CurrentPage = pageCollection.StartPage;
             this.ButtonStateManager = new ButtonStateManager();
+
+            // TODO Change hardcoded strings
+            this.ButtonStateManager.NextButton.Text = "Install";
+            this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.StartInstallSequence);
+            this.ButtonStateManager.BackButton.Command = new DelegateCommand(this.GoBack);
+            this.ButtonStateManager.UpgradeButton.Command = new DelegateCommand(this.StartUpgradeSequence);
+            this.ButtonStateManager.ModifyButton.Command = new DelegateCommand(this.StartModifySequence);
+            this.ButtonStateManager.RepairButton.Command = new DelegateCommand(this.StartRepairSequence);
+            this.ButtonStateManager.CancelButton.Command = new DelegateCommand(this.GoToErrorPage);
         }
 
         public void GoBack()
         {
             if (this.sequenceIndex > 0)
             {
-                this.CurrentPage = this.sequence[--sequenceIndex];
+                this.CurrentPage = this.sequence[--this.sequenceIndex];
             }
             else if (this.sequenceIndex == 0)
             {
+                // TODO Consider maybe exiting instead of going all the way back to start
                 this.CurrentPage = this.PageCollection.StartPage;
+
+                //this.ButtonStateManager.ModifyButton.Visible = false;
+                //this.ButtonStateManager.UpgradeButton.Visible = false;
+                //this.ButtonStateManager.RepairButton.Visible = false;
+                this.ButtonStateManager.BackButton.Visible = false;
+
+                this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.StartInstallSequence);
             }
 
             // TODO Throw error of some kind on else condition
@@ -60,7 +79,7 @@ namespace MaxBootstrap.Core.Pages
         {
             if (this.sequenceIndex < this.sequence.Count)
             {
-                this.CurrentPage = this.sequence[++sequenceIndex];
+                this.CurrentPage = this.sequence[++this.sequenceIndex];
             }
 
             // TODO Throw error of some kind on else condition
@@ -91,8 +110,22 @@ namespace MaxBootstrap.Core.Pages
             this.CurrentPage = this.PageCollection.ErrorPage;
         }
 
+        public void GoToCancelPage()
+        {
+            this.CurrentPage = this.PageCollection.CancelPage;
+        }
+
         private void StartSequence(IEnumerable<IPage> sequence)
         {
+            // TODO Change hardcoded strings
+            this.ButtonStateManager.NextButton.Text = "Next";
+            this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.GoNext);
+
+            this.ButtonStateManager.ModifyButton.Visible = false;
+            this.ButtonStateManager.UpgradeButton.Visible = false;
+            this.ButtonStateManager.RepairButton.Visible = false;
+            this.ButtonStateManager.BackButton.Visible = true;
+
             this.sequenceIndex = 0;
 
             this.sequence = sequence.ToList();

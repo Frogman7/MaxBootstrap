@@ -23,5 +23,7 @@ namespace MaxBootstrap.Core
         void StartRepairSequence();
 
         void GoToErrorPage();
+
+        void GoToCancelPage();
     }
 }

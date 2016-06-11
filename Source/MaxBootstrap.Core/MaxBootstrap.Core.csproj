@@ -62,6 +62,7 @@
     <Compile Include="Configuration\Loaders\XmlDeserializer.cs" />
     <Compile Include="Configuration\PackageInfo.cs" />
     <Compile Include="Configuration\VariableInfo.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Enums\BurnInstallationState.cs" />
     <Compile Include="Enums\FeatureEnums.cs" />
     <Compile Include="Enums\FeatureSelectedState.cs" />

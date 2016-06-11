@@ -9,6 +9,8 @@
              d:DataContext="{d:DesignInstance interfaces:IProgressViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Viewbox>
+            <TextBlock Text="Progess View"/>
+        </Viewbox>
     </Grid>
 </UserControl>

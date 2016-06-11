@@ -10,6 +10,8 @@ namespace MaxBootstrap.Core.Pages
 
         protected bool visible;
 
+        protected ICommand command;
+
         public string Text
         {
             get
@@ -52,7 +54,19 @@ namespace MaxBootstrap.Core.Pages
             }
         }
 
-        public ICommand Command { get; set; }
+        public ICommand Command
+        {
+            get
+            {
+                return this.command;
+            }
+
+            set
+            {
+                this.command = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         public ButtonState(string text, bool enabled, bool visible)
         {

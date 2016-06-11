@@ -17,8 +17,50 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="0" Content="{Binding CurrentPage}"/>
-        <ItemsControl ItemsSource="{Binding BootstrapperController.PageController.ButtonStateManager}" Grid.Row="1">
+        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black">
+            <ContentControl Content="{Binding CurrentPage}"/>
+        </Border>
+        <DockPanel Grid.Row="1" LastChildFill="False">
+            <DockPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="FontFamily" Value="Verdana"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Width" Value="100"/>
+                </Style>
+            </DockPanel.Resources>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Left"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Left"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Left"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Right"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Right"/>
+            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Right"/>
+        </DockPanel>
+        <!--<ItemsControl ItemsSource="{Binding BootstrapperController.PageController.ButtonStateManager}" Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -38,25 +80,7 @@
                     <Setter Property="FontWeight" Value="Bold"/>
                     <Setter Property="Width" Value="100"/>
                 </Style>
-            </ItemsControl.Resources>
-            <!--<Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Text}" 
-                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Visible}"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Text}" 
-                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Visible}"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Text}" 
-                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Visible}"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Text}" 
-                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Visible}"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Text}" 
-                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Visible}"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Text}" 
-                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Visible}"/>-->
-        </ItemsControl>
+            </ItemsControl.Resources>-->          
+        <!--</ItemsControl>-->
     </Grid>
 </Window>
