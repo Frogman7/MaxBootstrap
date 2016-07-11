@@ -13,7 +13,6 @@ namespace MaxBootstrap.UI.Pages
         public OptionPage(IBootstrapperController bootstrapperController) : base(bootstrapperController)
         {
             this.OptionView = new OptionView(new OptionViewmodel(bootstrapperController));
-
         }
 
         public override FrameworkElement ViewContent

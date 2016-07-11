@@ -4,46 +4,62 @@ namespace MaxBootstrap.Core.Pages
 {
     public class PageCollection
     {
-        private readonly IDictionary<string, IPage> pages;
+        private readonly IDictionary<string, PageActivator> pages;
 
-        private IList<IPage> installSequence;
+        private IList<string> installSequence;
 
-        private IList<IPage> upgradeSequence;
+        private IList<string> upgradeSequence;
 
-        private IList<IPage> modifySequence;
+        private IList<string> modifySequence;
 
-        private IList<IPage> repairSequence;
+        private IList<string> repairSequence;
 
-        private IList<IPage> uninstallSequence; 
+        private IList<string> uninstallSequence;
 
-        public IPage StartPage { get; set; }
+        public string StartPage { get; set; }
 
-        public IPage ErrorPage { get; set; }
+        public string ErrorPage { get; set; }
 
-        public IPage CancelPage { get; set; }
+        public string CancelPage { get; set; }
 
         public PageCollection()
         {
-            this.pages = new Dictionary<string, IPage>();
-            this.installSequence = new List<IPage>();
-            this.upgradeSequence = new List<IPage>();
-            this.modifySequence = new List<IPage>();
-            this.repairSequence = new List<IPage>();
+            this.pages = new Dictionary<string, PageActivator>();
+            this.installSequence = new List<string>();
+            this.upgradeSequence = new List<string>();
+            this.modifySequence = new List<string>();
+            this.repairSequence = new List<string>();
         }
 
-        public void RegisterPage(IPage page)
+        public IPage GetPage(string pageID)
         {
-            this.RegisterPage(page.GetType().Name, page);
+            if (string.IsNullOrEmpty(pageID))
+            {
+                // TODO throw error or something
+                return null;
+            }
+
+            if (this.pages.ContainsKey(pageID))
+            {
+                return this.pages[pageID].GetInstance();
+            }
+
+            // TODO Throw exception or at least log
+
+            return null;
         }
 
-        public void RegisterPage(string pageID, IPage page)
+        public void RegisterPage<TPageConcrete>(bool maintainInstance = false, params object[] parameters)
+        {
+            this.RegisterPage<TPageConcrete>(typeof(TPageConcrete).Name, maintainInstance, parameters);
+        }
+
+        public void RegisterPage<TPageConcrete>(string pageID, bool maintainInstance = false, params object[] parameters)
         {
             if (!this.pages.ContainsKey(pageID))
             {
-                this.pages[pageID] = page;
+                this.pages[pageID] = new PageActivator(typeof(TPageConcrete), maintainInstance, parameters);
             }
-
-            // TODO Throw exception or something
         }
 
         public void SetInstallSequence(IEnumerable<string> sequence)
@@ -66,7 +82,7 @@ namespace MaxBootstrap.Core.Pages
             this.SetSequence(sequence, this.repairSequence);
         }
 
-        public IEnumerable<IPage> InstallSequence
+        public IEnumerable<string> InstallSequence
         {
             get
             {
@@ -74,7 +90,7 @@ namespace MaxBootstrap.Core.Pages
             }
         }
 
-        public IEnumerable<IPage> UpgradeSequence
+        public IEnumerable<string> UpgradeSequence
         {
             get
             {
@@ -82,7 +98,7 @@ namespace MaxBootstrap.Core.Pages
             }
         }
 
-        public IEnumerable<IPage> ModifySequence
+        public IEnumerable<string> ModifySequence
         {
             get
             {
@@ -90,7 +106,7 @@ namespace MaxBootstrap.Core.Pages
             }
         }
 
-        public IEnumerable<IPage> RepairSequence
+        public IEnumerable<string> RepairSequence
         {
             get
             {
@@ -98,21 +114,25 @@ namespace MaxBootstrap.Core.Pages
             }
         }
 
-        public IEnumerable<IPage> UninstallSequence
+        public IEnumerable<string> UninstallSequence
         {
             get
             {
                 return this.uninstallSequence;
             }
-        } 
+        }
 
-        private void SetSequence(IEnumerable<string> sequence, IList<IPage> pageList)
+        private void SetSequence(IEnumerable<string> sequence, IList<string> pageList)
         {
             foreach (var pageName in sequence)
             {
                 if (this.pages.ContainsKey(pageName))
                 {
-                    pageList.Add(this.pages[pageName]);
+                    pageList.Add(pageName);
+                }
+                else
+                {
+                    // TODO Thow exception or something
                 }
             }
         }

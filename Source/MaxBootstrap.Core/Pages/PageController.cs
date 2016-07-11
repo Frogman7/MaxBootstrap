@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MaxBootstrap.UI;
 
 namespace MaxBootstrap.Core.Pages
 {
     public class PageController : ObservableBase, IPageController
     {
-        private IList<IPage> sequence;
+        private IList<string> sequence;
 
         private IPage currentPage;
 
@@ -22,7 +20,7 @@ namespace MaxBootstrap.Core.Pages
             {
                 if (this.currentPage == null)
                 {
-                    this.currentPage = this.PageCollection.StartPage;
+                    this.currentPage = this.PageCollection.GetPage(PageCollection.StartPage);
                 }
 
                 return this.currentPage;
@@ -40,7 +38,7 @@ namespace MaxBootstrap.Core.Pages
         public PageController(PageCollection pageCollection)
         {
             this.PageCollection = pageCollection;
-            this.CurrentPage = pageCollection.StartPage;
+            this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.StartPage);
             this.ButtonStateManager = new ButtonStateManager();
 
             // TODO Change hardcoded strings
@@ -50,19 +48,19 @@ namespace MaxBootstrap.Core.Pages
             this.ButtonStateManager.UpgradeButton.Command = new DelegateCommand(this.StartUpgradeSequence);
             this.ButtonStateManager.ModifyButton.Command = new DelegateCommand(this.StartModifySequence);
             this.ButtonStateManager.RepairButton.Command = new DelegateCommand(this.StartRepairSequence);
-            this.ButtonStateManager.CancelButton.Command = new DelegateCommand(this.GoToErrorPage);
+            this.ButtonStateManager.CancelButton.Command = new DelegateCommand(this.GoToCancelPage);
         }
 
         public void GoBack()
         {
             if (this.sequenceIndex > 0)
             {
-                this.CurrentPage = this.sequence[--this.sequenceIndex];
+                this.CurrentPage = this.PageCollection.GetPage(this.sequence[--this.sequenceIndex]);
             }
             else if (this.sequenceIndex == 0)
             {
                 // TODO Consider maybe exiting instead of going all the way back to start
-                this.CurrentPage = this.PageCollection.StartPage;
+                this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.StartPage);
 
                 //this.ButtonStateManager.ModifyButton.Visible = false;
                 //this.ButtonStateManager.UpgradeButton.Visible = false;
@@ -79,7 +77,7 @@ namespace MaxBootstrap.Core.Pages
         {
             if (this.sequenceIndex < this.sequence.Count)
             {
-                this.CurrentPage = this.sequence[++this.sequenceIndex];
+                this.CurrentPage = this.PageCollection.GetPage(this.sequence[++this.sequenceIndex]);
             }
 
             // TODO Throw error of some kind on else condition
@@ -107,15 +105,15 @@ namespace MaxBootstrap.Core.Pages
 
         public void GoToErrorPage()
         {
-            this.CurrentPage = this.PageCollection.ErrorPage;
+            this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.ErrorPage);
         }
 
         public void GoToCancelPage()
         {
-            this.CurrentPage = this.PageCollection.CancelPage;
+            this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.CancelPage);
         }
 
-        private void StartSequence(IEnumerable<IPage> sequence)
+        private void StartSequence(IEnumerable<string> sequence)
         {
             // TODO Change hardcoded strings
             this.ButtonStateManager.NextButton.Text = "Next";
@@ -130,7 +128,7 @@ namespace MaxBootstrap.Core.Pages
 
             this.sequence = sequence.ToList();
 
-            this.CurrentPage = this.sequence[0];
+            this.CurrentPage = this.PageCollection.GetPage(this.sequence[0]);
         }
     }
 }
