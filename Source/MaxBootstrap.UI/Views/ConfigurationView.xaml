@@ -5,11 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance interfaces:IConfigurationViewmodel}"
+             d:DataContext="{d:DesignInstance ConfigurationViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            <Viewbox>
-                <TextBlock Text="Configuration View"/>
-            </Viewbox>
+        <ListView ItemsSource="{Binding ConfigurationItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding Caption}"/>
+                        <TextBox Grid.Column="1" Text="{Binding Value}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </UserControl>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance interfaces:IOptionViewmodel}"
+             d:DataContext="{d:DesignInstance OptionViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
             <Viewbox>

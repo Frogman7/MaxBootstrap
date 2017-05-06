@@ -50,14 +50,32 @@ namespace MaxBootstrap.Core
             this.WixBootstrapper.DetectMsiFeature += (sender, eventArgs) => this.detectMsiFeature(eventArgs);
             this.WixBootstrapper.DetectPackageComplete += (sender, eventArgs) => this.detectPackageComplete(eventArgs);
 
+            this.WixBootstrapper.PlanPackageBegin += (sender, eventArgs) => this.planPackageBegin(eventArgs);
+            this.WixBootstrapper.PlanPackageComplete += (sender, eventArgs) => this.planPackageComplete(eventArgs);
+
             this.WixBootstrapper.ExecuteMsiMessage += (sender, eventArgs) => this.executeMsiMessage(eventArgs);
             this.WixBootstrapper.RestartRequired += (sender, eventArgs) => this.restartRequired(eventArgs);
 
             this.WixBootstrapper.ApplyBegin += (sender, eventArgs) => this.applyBegin(eventArgs);
             this.WixBootstrapper.ExecuteFilesInUse += (sender, eventArgs) => this.executeFilesInUse(eventArgs);
-            this.WixBootstrapper.ExecutePackageBegin += (sender, eventArgs) => this.executePacakgeBegin(eventArgs);
+            this.WixBootstrapper.ExecutePackageBegin += (sender, eventArgs) => this.executePackageBegin(eventArgs);
             this.WixBootstrapper.ExecutePackageComplete += (sender, eventArgs) => this.executePackageComplete(eventArgs);
             this.WixBootstrapper.ApplyComplete += (sender, eventArgs) => this.applyComplete(eventArgs);
+        }
+
+        private void planPackageComplete(PlanPackageCompleteEventArgs eventArgs)
+        {
+            IPackage package = this.PackageManager.FindPackageById(eventArgs.PackageId);
+
+            if (package != null)
+            {
+                package.RequestedState = eventArgs.Requested;
+            }
+        }
+
+        private void planPackageBegin(PlanPackageBeginEventArgs eventArgs)
+        {
+            // Allows changing how the package plan
         }
 
         private void detectUpdate(DetectUpdateEventArgs eventArgs)
@@ -80,7 +98,7 @@ namespace MaxBootstrap.Core
             // IDK
         }
 
-        private void executePacakgeBegin(ExecutePackageBeginEventArgs eventArgs)
+        private void executePackageBegin(ExecutePackageBeginEventArgs eventArgs)
         {
             // IDK
         }
@@ -150,7 +168,12 @@ namespace MaxBootstrap.Core
 
         private void detectPackageComplete(DetectPackageCompleteEventArgs eventArgs)
         {
-            // IDK
+            IPackage package = this.PackageManager.FindPackageById(eventArgs.PackageId);
+
+            if (package != null)
+            {
+                package.PackageState = eventArgs.State;
+            }
         }
 
         private void detectCompatiblePackage(DetectCompatiblePackageEventArgs eventArgs)
@@ -174,6 +197,9 @@ namespace MaxBootstrap.Core
         {
         }
 
+        /// <summary>
+        /// Fired when a critical error has been thrown with a message regarding what happened.
+        /// </summary>
         public event Action<string> OnCriticalError;
 
         /// <summary>

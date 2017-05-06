@@ -4,10 +4,10 @@
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+		<MediaTemplate EmbedCab="yes"/>
 
 		<Feature Id="ProductFeature" Title="TestMSI" Level="1">
-      <Feature Id="Extras" Title="Extra Text File" Level="2" Display="expand" Absent="disallow">
+      <Feature Id="Extras" Title="Extra Text File" Description="An Extra text file for you" Level="2" Display="expand" Absent="disallow">
         <ComponentGroupRef Id="ExtraComponents"/>
       </Feature>
 			<ComponentGroupRef Id="ProductComponents" />

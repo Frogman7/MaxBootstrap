@@ -1,10 +1,15 @@
 ﻿using MaxBootstrap.Core.Packages.Features;
+using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using System.Collections.Generic;
 
 namespace MaxBootstrap.Core.Packages
 {
     public interface IPackage
     {
+        PackageState PackageState { get; set; }
+
+        RequestState RequestedState { get; set; }
+
         IEnumerable<IFeature> Features { get; }
 
         string ID { get; }

@@ -5,14 +5,16 @@
     using Core.Pages;
     using Viewmodels.Concretes;
     using Views;
+    using Models;
+    using System.Collections.Generic;
 
-    class ConfigurationPage : PageBase
+    public class ConfigurationPage : PageBase
     {
         protected ConfigurationView ConfigurationView;
 
-        public ConfigurationPage(IBootstrapperController bootstrapperController) : base(bootstrapperController)
+        public ConfigurationPage(IBootstrapperController bootstrapperController, IEnumerable<ConfigurationItem> configurationItems) : base(bootstrapperController)
         {
-            this.ConfigurationView = new ConfigurationView(new ConfigurationViewmodel(bootstrapperController));
+            this.ConfigurationView = new ConfigurationView(new ConfigurationViewmodel(bootstrapperController, configurationItems));
         }
 
         public override FrameworkElement ViewContent

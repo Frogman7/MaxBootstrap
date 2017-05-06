@@ -19,6 +19,8 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
             this.BootstrapperController.WixBootstrapper.PlanPackageBegin += (sender, args) => this.PlanPackageBegin(args);
             this.BootstrapperController.WixBootstrapper.ExecuteProgress += (sender, args) => this.ExecuteProgress(args);
             this.BootstrapperController.WixBootstrapper.ExecutePackageBegin += (sender, args) => this.ExecutePackageBegin(args);
+
+            bootstrapperController.PageController.ButtonStateManager.NextButton.Enabled = false;
         }
 
         private void ExecutePackageBegin(ExecutePackageBeginEventArgs args)
@@ -33,6 +35,11 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
             this.PackageProgress = (ushort)args.ProgressPercentage;
 
             this.TotalProgress += (ushort)args.OverallPercentage;
+
+            if (this.TotalProgress == 100)
+            {
+                this.BootstrapperController.PageController.GoNext();
+            }
         }
 
         private void PlanPackageBegin(PlanPackageBeginEventArgs args)

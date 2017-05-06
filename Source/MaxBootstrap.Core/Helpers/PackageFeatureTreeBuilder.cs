@@ -8,20 +8,20 @@ namespace MaxBootstrap.Core.Helpers
 {
     public class PackageFeatureTreeBuilder
     {
-        public IEnumerable<IPackage> BuildPackageTrees(IEnumerable<PackageInfo> packageInfos, IEnumerable<FeatureInfo> featureInfos)
+        public static IEnumerable<IPackage> BuildPackageTrees(IEnumerable<PackageInfo> packageInfos, IEnumerable<FeatureInfo> featureInfos)
         {
             IList<IPackage> packages = new List<IPackage>();
 
             foreach (var packageInfo in packageInfos)
             {
-                var package = this.ProcessPackage(packageInfo, featureInfos.Where(featureInfo => featureInfo.PackageId.Equals(packageInfo.Id)));
+                var package = ProcessPackage(packageInfo, featureInfos.Where(featureInfo => featureInfo.PackageId.Equals(packageInfo.Id)));
                 packages.Add(package);
             }
 
             return packages;
         }
 
-        private IPackage ProcessPackage(PackageInfo packageInfo, IEnumerable<FeatureInfo> featureInfos)
+        private static IPackage ProcessPackage(PackageInfo packageInfo, IEnumerable<FeatureInfo> featureInfos)
         {
             IPackage package = new Package(packageInfo.Id, packageInfo.DisplayName);
 

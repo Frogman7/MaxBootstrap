@@ -25,7 +25,7 @@ namespace MaxBootstrap.Core.Packages.Features
 
         FeatureEnums.Display Display { get;  }
 
-        FeatureSelectedState.SelectedState SelectedState { get; }
+        FeatureSelectedState.SelectedState SelectedState { get; set;  }
 
         void AddSubFeature(IFeature feature);
 

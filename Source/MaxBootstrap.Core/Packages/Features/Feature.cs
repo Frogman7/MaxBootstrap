@@ -18,7 +18,7 @@ namespace MaxBootstrap.Core.Packages.Features
 
         public string FeatureId { get; protected set; }
 
-        SelectedState selectedState;
+        private SelectedState selectedState;
 
         public Feature(string featureId, string title, string description, uint size, Display display)
         {
@@ -33,7 +33,6 @@ namespace MaxBootstrap.Core.Packages.Features
 
         public SelectedState SelectedState
         {
-
             get
             {
                 return this.selectedState;
@@ -43,8 +42,43 @@ namespace MaxBootstrap.Core.Packages.Features
             {
                 if (this.selectedState != value)
                 {
-                    this.selectedState = value;
-                    this.OnFeatureStateChange(this.selectedState);
+                    // The 'partial' state should only be set via events from children
+                    if (value == SelectedState.Partial)
+                    {
+                        if (this.selectedState == SelectedState.Selected)
+                        {
+                            this.selectedState = SelectedState.Unselected;
+                        }
+                        else
+                        {
+                            this.selectedState = SelectedState.Selected;
+                        }
+                    }
+                    else
+                    {
+                        this.selectedState = value;
+                    }
+
+                    if (this.selectedState == SelectedState.Selected)
+                    {
+                        foreach (var feature in this.subFeatures)
+                        {
+                            feature.SelectedState = Enums.FeatureSelectedState.SelectedState.Selected;
+                        }
+                    }
+                    else
+                    {
+                        foreach (var feature in this.subFeatures)
+                        {
+                            feature.SelectedState = Enums.FeatureSelectedState.SelectedState.Unselected;
+                        }
+                    }
+
+                    if (this.OnFeatureStateChange != null)
+                    {
+                        this.OnFeatureStateChange(this.selectedState);
+                    }
+
                     this.NotifyPropertyChanged();
                 }
             }

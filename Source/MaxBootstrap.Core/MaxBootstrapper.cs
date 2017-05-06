@@ -1,16 +1,19 @@
-﻿using MaxBootstrap.Core.Configuration.Loaders;
-using MaxBootstrap.Core.Packages;
-using MaxBootstrap.Core.Pages;
-using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
-using System;
-using System.Diagnostics;
-using System.Windows.Threading;
-using System.Linq;
-using System.Configuration;
-using System.Windows;
-
-namespace MaxBootstrap.Core
+﻿namespace MaxBootstrap.Core
 {
+    using System;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Threading;
+
+    using MaxBootstrap.Core.Configuration.Loaders;
+    using MaxBootstrap.Core.Packages;
+    using MaxBootstrap.Core.Pages;
+
+    using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+    using Helpers;
+
     public class MaxBootstrapper : BootstrapperApplication
     {
         public Dispatcher BootstrapperDispatcher { get; protected set; }
@@ -22,10 +25,22 @@ namespace MaxBootstrap.Core
 #if DEBUG
             Debugger.Launch();
 #endif
-            
+
             this.BootstrapperDispatcher = Dispatcher.CurrentDispatcher;
 
             this.mainWindow = this.ResolveMainWindow();
+
+            var bootstrapperMainWindow = this.mainWindow as IBootstrapperMainWindow;
+
+            var bundleLoader = new BurnApplicationDataLoader();
+            var info = bundleLoader.Load();
+
+            var packageTrees = PackageFeatureTreeBuilder.BuildPackageTrees(info.Packages, info.PackageFeatures);
+
+            foreach (var packageTree in packageTrees)
+            {
+                bootstrapperMainWindow.Viewmodel.BootstrapperController.PackageManager.AddPackage(packageTree);
+            }
 
             this.Engine.Log(LogLevel.Verbose, "Starting MaxBootstrapper");
 
@@ -38,12 +53,7 @@ namespace MaxBootstrap.Core
 
             this.Engine.Detect();
 
-            var bundleLoader = new BurnApplicationDataLoader();
-            var info = bundleLoader.Load();
-
             Dispatcher.Run();
-
-            var bootstrapperMainWindow = this.mainWindow as IBootstrapperMainWindow;
 
             // Figured there should be a null check here even though it should be theoretically impossible to ever not be null
             if (bootstrapperMainWindow != null)

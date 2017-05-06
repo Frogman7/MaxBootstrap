@@ -7,7 +7,7 @@
              xmlns:features="clr-namespace:MaxBootstrap.Core.Packages.Features;assembly=MaxBootstrap.Core"
              xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance interfaces:IFeatureViewmodel}"
+             d:DataContext="{d:DesignInstance FeatureViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
@@ -25,7 +25,7 @@
                 </Grid.RowDefinitions>
 
                 <CheckBox Grid.Row="0" IsThreeState="True" Content="{Binding Title}" IsChecked="{Binding SelectedState, Converter={StaticResource FeatureStateToNullableBoolConverter}}" />
-                <TextBlock Grid.Row="1" Text="{Binding Description}"/>
+                <TextBlock Grid.Row="1" Text="{Binding Description}" Visibility="{Binding TemplatedParent.IsSelected, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </Grid>
         </HierarchicalDataTemplate>
     </UserControl.Resources>

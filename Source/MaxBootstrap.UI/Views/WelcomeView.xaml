@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
              xmlns:attachedProperties="clr-namespace:MaxBootstrap.UI.AttachedProperties"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance interfaces:IWelcomeViewmodel}"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance WelcomeViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     
     <UserControl.Resources>

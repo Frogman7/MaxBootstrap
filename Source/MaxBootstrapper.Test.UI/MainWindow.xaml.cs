@@ -5,6 +5,7 @@ namespace MaxBootstrapper.Test.UI
 {
     using MaxBootstrap.Core;
     using MaxBootstrap.Core.View;
+    using MaxBootstrap.UI.Models;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -45,6 +46,7 @@ namespace MaxBootstrapper.Test.UI
 
             pageController.PageCollection.RegisterPage<OptionPage>(false, this.bootstrapperController);
             pageController.PageCollection.RegisterPage<FeaturePage>(false, this.bootstrapperController);
+            pageController.PageCollection.RegisterPage<ConfigurationPage>(false, this.bootstrapperController, new ConfigurationItem[] { new ConfigurationItem( "Tacos", "What the F?", "Burritos" ), new ConfigurationItem("SomeVariable", "Herp", "Derp") });
             pageController.PageCollection.RegisterPage<ProgressPage>(false, this.bootstrapperController);
             pageController.PageCollection.RegisterPage<FinishPage>(false, this.bootstrapperController);
 
@@ -56,16 +58,7 @@ namespace MaxBootstrapper.Test.UI
             pageController.PageCollection.CancelPage = "CancelPage";
             pageController.PageCollection.ErrorPage = "ErrorPage";
 
-            //pageController.PageCollection.RegisterPage(new OptionPage(this.bootstrapperController));
-            //pageController.PageCollection.RegisterPage(new FeaturePage(this.bootstrapperController));
-            //pageController.PageCollection.RegisterPage(new ProgressPage(this.bootstrapperController));
-            //pageController.PageCollection.RegisterPage(new FinishPage(this.bootstrapperController));
-
-            //pageController.PageCollection.StartPage = new WelcomePage(this.bootstrapperController);
-            //pageController.PageCollection.ErrorPage = new ErrorPage(this.bootstrapperController);
-            //pageController.PageCollection.CancelPage = new CancelPage(this.bootstrapperController);
-
-            pageController.PageCollection.SetInstallSequence(new List<string>() { "OptionPage", "FeaturePage", "ProgressPage", "FinishPage"});
+            pageController.PageCollection.SetInstallSequence(new List<string>() { "OptionPage", "FeaturePage", "ConfigurationPage", "ProgressPage", "FinishPage"});
         }
     }
 }

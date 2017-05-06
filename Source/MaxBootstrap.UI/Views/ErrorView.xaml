@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MaxBootstrap.UI.Views"
              xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance interfaces:IErrorViewmodel}"
+             d:DataContext="{d:DesignInstance ErrorViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
             <TextBlock Text="{Binding ErrorMessageText}" TextAlignment="Left" FontSize="24" FontFamily="Verdana" FontWeight="Bold" TextWrapping="Wrap"/>

@@ -20,7 +20,7 @@ namespace MaxBootstrap.Core.Pages
             {
                 if (this.currentPage == null)
                 {
-                    this.currentPage = this.PageCollection.GetPage(PageCollection.StartPage);
+                    this.currentPage = this.PageCollection.GetPage(this.PageCollection.StartPage);
                 }
 
                 return this.currentPage;

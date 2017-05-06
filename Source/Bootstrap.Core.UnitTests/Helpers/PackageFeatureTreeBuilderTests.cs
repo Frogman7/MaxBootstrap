@@ -14,9 +14,7 @@ namespace Bootstrap.Core.UnitTests.Helpers
         [TestMethod]
         public void SimpleTreeBuild()
         {
-            var treeBuilder = new PackageFeatureTreeBuilder();
-
-            var packages = treeBuilder.BuildPackageTrees(this.buildPackageInfos(), this.buildFeatureInfos()).ToList();
+            var packages = PackageFeatureTreeBuilder.BuildPackageTrees(this.buildPackageInfos(), this.buildFeatureInfos()).ToList();
 
             // Testing package 3
             var package3 = packages[2];
@@ -29,7 +27,7 @@ namespace Bootstrap.Core.UnitTests.Helpers
         {
             var treeBuilder = new PackageFeatureTreeBuilder();
 
-            var packages = treeBuilder.BuildPackageTrees(this.buildPackageInfos(), this.buildFeatureInfos()).ToList();
+            var packages = PackageFeatureTreeBuilder.BuildPackageTrees(this.buildPackageInfos(), this.buildFeatureInfos()).ToList();
 
             // Testing package 1
             var package1 = packages[0];
@@ -48,9 +46,7 @@ namespace Bootstrap.Core.UnitTests.Helpers
         [TestMethod]
         public void TestUnorderedTreeBuild()
         {
-            var treeBuilder = new PackageFeatureTreeBuilder();
-
-            var packages = treeBuilder.BuildPackageTrees(this.buildPackageInfos(), this.buildFeatureInfos()).ToList();
+            var packages = PackageFeatureTreeBuilder.BuildPackageTrees(this.buildPackageInfos(), this.buildFeatureInfos()).ToList();
 
             // Testing package 2
             var package1 = packages[1];

@@ -4,83 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:MaxBootstrap.Core.View;assembly=MaxBootstrap.Core"
+        xmlns:customControls="clr-namespace:MaxBootstrap.UI.CustomControls;assembly=MaxBootstrap.UI"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance view:IBootstrapperMainWindowViewmodel}"
         Title="Installation Window" Height="400" Width="400">
     
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black">
-            <ContentControl Content="{Binding CurrentPage}"/>
-        </Border>
-        <DockPanel Grid.Row="1" LastChildFill="False">
-            <DockPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="FontFamily" Value="Verdana"/>
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Width" Value="100"/>
-                </Style>
-            </DockPanel.Resources>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Text}"
+    <customControls:DialogHost>
+        <customControls:DialogHost.HostContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black">
+                    <ContentControl Content="{Binding CurrentPage}"/>
+                </Border>
+                <DockPanel Grid.Row="1" LastChildFill="False">
+                    <DockPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="FontFamily" Value="Verdana"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Width" Value="100"/>
+                        </Style>
+                    </DockPanel.Resources>
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Text}"
                     Command="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Command}"
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.CancelButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Left"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Text}"
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Text}"
                     Command="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Command}"
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.BackButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Left"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Text}"
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Text}"
                     Command="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Command}"
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.ModifyButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Left"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Text}"
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Text}"
                     Command="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Command}"
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.RepairButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Right"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Text}"
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Text}"
                     Command="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Command}"
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Right"/>
-            <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Text}"
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Text}"
                     Command="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Command}"
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.NextButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Right"/>
-        </DockPanel>
-        <!--<ItemsControl ItemsSource="{Binding BootstrapperController.PageController.ButtonStateManager}" Grid.Row="1">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Command="{Binding Command}" Content="{Binding Text}" 
-                            Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                            IsEnabled="{Binding Enabled}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="FontFamily" Value="Verdana"/>
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Width" Value="100"/>
-                </Style>
-            </ItemsControl.Resources>-->          
-        <!--</ItemsControl>-->
-    </Grid>
+                </DockPanel>
+            </Grid>
+        </customControls:DialogHost.HostContent>
+    </customControls:DialogHost>
 </Window>

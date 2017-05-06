@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MaxBootstrap.UI.Views"
              xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance interfaces:IProgressViewmodel}"
+             d:DataContext="{d:DesignInstance ProgressViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Viewbox>
