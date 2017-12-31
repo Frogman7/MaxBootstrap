@@ -281,16 +281,17 @@ namespace MaxBootstrap.Core
             if (eventArgs.Installed)
             {
                 this.BurnInstallState = BurnInstallState.Present;
-                this.PageController.ButtonStateManager.InstallButton.Visible = true;
-            }
-            else
-            {
-                this.BurnInstallState = BurnInstallState.NotPresent;
 
                 // TODO Have a way for a user to easily enable/disable these buttons
                 this.PageController.ButtonStateManager.UninstallButton.Visible = true;
                 this.PageController.ButtonStateManager.RepairButton.Visible = true;
                 this.PageController.ButtonStateManager.ModifyButton.Visible = true;
+            }
+            else
+            {
+                this.BurnInstallState = BurnInstallState.NotPresent;
+
+                this.PageController.ButtonStateManager.InstallButton.Visible = true;
             }
         }
     }

@@ -67,6 +67,11 @@
                     IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Enabled}" 
                     Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.UpgradeButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     DockPanel.Dock="Right"/>
+                    <Button Content="{Binding BootstrapperController.PageController.ButtonStateManager.InstallButton.Text}"
+                    Command="{Binding BootstrapperController.PageController.ButtonStateManager.InstallButton.Command}"
+                    IsEnabled="{Binding BootstrapperController.PageController.ButtonStateManager.InstallButton.Enabled}" 
+                    Visibility="{Binding BootstrapperController.PageController.ButtonStateManager.InstallButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    DockPanel.Dock="Right"/>
                 </DockPanel>
             </Grid>
         </customControls:DialogHost.HostContent>
