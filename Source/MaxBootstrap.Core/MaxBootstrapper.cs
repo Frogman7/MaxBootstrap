@@ -77,7 +77,11 @@
 
             var bootstrapperController = new BootstrapperController(this, new PageController(new PageCollection()), new PackageManager());
 
-            return (Window)Activator.CreateInstance(type, new object[] { bootstrapperController });
+            var window = (Window)Activator.CreateInstance(type, new object[] { bootstrapperController });
+
+            bootstrapperController.WindowHandle = new System.Windows.Interop.WindowInteropHelper(window).Handle;
+
+            return window;
         }
 
         private string GetSetting(string key)
@@ -90,7 +94,6 @@
                 {
                     value = ConfigurationManager.AppSettings[key];
                 }
-
                 catch
                 {
                     // Log that key could not be read

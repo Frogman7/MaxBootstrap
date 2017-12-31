@@ -67,6 +67,7 @@
     <Compile Include="Enums\FeatureEnums.cs" />
     <Compile Include="Enums\FeatureSelectedState.cs" />
     <Compile Include="Enums\InstallationResult.cs" />
+    <Compile Include="Enums\Sequence.cs" />
     <Compile Include="Helpers\PackageFeatureTreeBuilder.cs" />
     <Compile Include="IBundle.cs" />
     <Compile Include="Packages\Features\Feature.cs" />

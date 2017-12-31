@@ -3,18 +3,25 @@ using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using MaxBootstrap.Core.Enums;
 using MaxBootstrap.Core.Packages;
 using MaxBootstrap.Core.Pages;
+using System.ComponentModel;
 
 namespace MaxBootstrap.Core
 {
     public class BootstrapperController : IBootstrapperController
     {
+        /// <summary>
+        /// Fired when a critical error has been thrown with a message regarding what happened.
+        /// </summary>
+        public event Action<string> OnCriticalError;
+
+        public IntPtr WindowHandle { get; set; }
+
         public BurnInstallState BurnInstallState { get; protected set; }
 
         public IPageController PageController { get; protected set; }
 
-        public ButtonStateManager ButtonStateManager { get; protected set; }
-
         public bool RestartRequired { get; protected set; }
+
         public MaxBootstrapper WixBootstrapper { get; protected set; }
 
         public int FinalResult { get; protected set; }
@@ -24,11 +31,14 @@ namespace MaxBootstrap.Core
         public bool Cancelled { get; protected set; }
 
         public bool UpgradeDetected { get; protected set; }
+
         public bool PreviouslyInstalled { get; protected set; }
 
         public InstallationResult InstallationResult { get; protected set; }
 
         public IPackageManager PackageManager { get; protected set; }
+
+        public LaunchAction LaunchAction { get; protected set; }
 
         public BootstrapperController(MaxBootstrapper wixBootstrapper, IPageController pageController, IPackageManager packageManager)
         {
@@ -36,34 +46,41 @@ namespace MaxBootstrap.Core
             this.PageController = pageController;
             this.PackageManager = packageManager;
 
-            this.WixBootstrapper.Elevate += (sender, eventArgs) => this.elevate(eventArgs);
-            this.WixBootstrapper.Error += (sender, eventArgs) => this.error(eventArgs);
-            this.WixBootstrapper.Shutdown += (sender, eventArgs) => this.shutdown(eventArgs);
+            this.PageController.SequenceStarted += this.SetLaunchAction;
 
-            this.WixBootstrapper.ResolveSource += (sender, eventArgs) => this.resolveSource(eventArgs);
-            this.WixBootstrapper.DetectBegin += (sender, eventArgs) => this.detectBegin(eventArgs);
-            this.WixBootstrapper.DetectRelatedBundle += (sender, eventArgs) => this.detectRelatedBundle(eventArgs);
-            this.WixBootstrapper.DetectCompatiblePackage += (sender, eventArgs) => this.detectCompatiblePackage(eventArgs);
-            this.WixBootstrapper.DetectPriorBundle += (sender, eventArgs) => this.detectPriorBundle(eventArgs);
-            this.WixBootstrapper.DetectPackageBegin += (sender, eventArgs) => this.detectPackageBegin(eventArgs);
-            this.WixBootstrapper.DetectUpdate += (sender, eventArgs) => this.detectUpdate(eventArgs);
-            this.WixBootstrapper.DetectMsiFeature += (sender, eventArgs) => this.detectMsiFeature(eventArgs);
-            this.WixBootstrapper.DetectPackageComplete += (sender, eventArgs) => this.detectPackageComplete(eventArgs);
+            this.WixBootstrapper.Elevate += (sender, eventArgs) => this.Elevate(eventArgs);
+            this.WixBootstrapper.Error += (sender, eventArgs) => this.ErrorEcountered(eventArgs);
+            this.WixBootstrapper.Shutdown += (sender, eventArgs) => this.Shutdown(eventArgs);
 
-            this.WixBootstrapper.PlanPackageBegin += (sender, eventArgs) => this.planPackageBegin(eventArgs);
-            this.WixBootstrapper.PlanPackageComplete += (sender, eventArgs) => this.planPackageComplete(eventArgs);
+            this.WixBootstrapper.ResolveSource += (sender, eventArgs) => this.ResolveSource(eventArgs);
+            this.WixBootstrapper.DetectBegin += (sender, eventArgs) => this.DetectBegin(eventArgs);
+            this.WixBootstrapper.DetectRelatedBundle += (sender, eventArgs) => this.DetectRelatedBundle(eventArgs);
+            this.WixBootstrapper.DetectCompatiblePackage += (sender, eventArgs) => this.DetectCompatiblePackage(eventArgs);
+            this.WixBootstrapper.DetectPriorBundle += (sender, eventArgs) => this.DetectPriorBundle(eventArgs);
+            this.WixBootstrapper.DetectPackageBegin += (sender, eventArgs) => this.DetectPackageBegin(eventArgs);
+            this.WixBootstrapper.DetectUpdate += (sender, eventArgs) => this.DetectUpdate(eventArgs);
+            this.WixBootstrapper.DetectMsiFeature += (sender, eventArgs) => this.DetectMsiFeature(eventArgs);
+            this.WixBootstrapper.DetectPackageComplete += (sender, eventArgs) => this.DetectPackageComplete(eventArgs);
 
-            this.WixBootstrapper.ExecuteMsiMessage += (sender, eventArgs) => this.executeMsiMessage(eventArgs);
-            this.WixBootstrapper.RestartRequired += (sender, eventArgs) => this.restartRequired(eventArgs);
+            this.WixBootstrapper.PlanPackageBegin += (sender, eventArgs) => this.PlanPackageBegin(eventArgs);
+            this.WixBootstrapper.PlanPackageComplete += (sender, eventArgs) => this.PlanPackageComplete(eventArgs);
+            this.WixBootstrapper.PlanMsiFeature += (sender, eventArgs) => this.PlanMsiFeature(eventArgs);
+            this.WixBootstrapper.PlanBegin += (sender, eventArgs) => this.PlanBegin(eventArgs);
+            this.WixBootstrapper.PlanComplete += (sender, eventArgs) => this.PlanComplete(eventArgs);
 
-            this.WixBootstrapper.ApplyBegin += (sender, eventArgs) => this.applyBegin(eventArgs);
-            this.WixBootstrapper.ExecuteFilesInUse += (sender, eventArgs) => this.executeFilesInUse(eventArgs);
-            this.WixBootstrapper.ExecutePackageBegin += (sender, eventArgs) => this.executePackageBegin(eventArgs);
-            this.WixBootstrapper.ExecutePackageComplete += (sender, eventArgs) => this.executePackageComplete(eventArgs);
-            this.WixBootstrapper.ApplyComplete += (sender, eventArgs) => this.applyComplete(eventArgs);
+            this.WixBootstrapper.ExecuteMsiMessage += (sender, eventArgs) => this.ExecuteMsiMessage(eventArgs);
+            this.WixBootstrapper.RestartRequired += (sender, eventArgs) => this.RestartRequiredEncountered(eventArgs);
+
+            this.WixBootstrapper.ApplyBegin += (sender, eventArgs) => this.ApplyBegin(eventArgs);
+            this.WixBootstrapper.ExecuteFilesInUse += (sender, eventArgs) => this.ExecuteFilesInUse(eventArgs);
+            this.WixBootstrapper.ExecutePackageBegin += (sender, eventArgs) => this.ExecutePackageBegin(eventArgs);
+            this.WixBootstrapper.ExecutePackageComplete += (sender, eventArgs) => this.ExecutePackageComplete(eventArgs);
+            this.WixBootstrapper.ApplyComplete += (sender, eventArgs) => this.ApplyComplete(eventArgs);
+
+            this.LaunchAction = LaunchAction.Unknown;
         }
 
-        private void planPackageComplete(PlanPackageCompleteEventArgs eventArgs)
+        private void PlanPackageComplete(PlanPackageCompleteEventArgs eventArgs)
         {
             IPackage package = this.PackageManager.FindPackageById(eventArgs.PackageId);
 
@@ -73,52 +90,104 @@ namespace MaxBootstrap.Core
             }
         }
 
-        private void planPackageBegin(PlanPackageBeginEventArgs eventArgs)
+        private void SetLaunchAction(Sequence sequence)
+        {
+            switch (sequence)
+            {
+                case Sequence.Install:
+                    {
+                        this.LaunchAction = LaunchAction.Install;
+                        break;
+                    }
+                case Sequence.Uninstall:
+                    {
+                        this.LaunchAction = LaunchAction.Uninstall;
+                        break;
+                    }
+                case Sequence.Modify:
+                    {
+                        this.LaunchAction = LaunchAction.Modify;
+                        break;
+                    }
+                case Sequence.Upgrade:
+                    {
+                        // TODO Verify this is correct
+                        this.LaunchAction = LaunchAction.UpdateReplace;
+                        break;
+                    }
+                case Sequence.Repair:
+                    {
+                        this.LaunchAction = LaunchAction.Repair;
+                        break;
+                    }
+                default:
+                    {
+                        throw new InvalidEnumArgumentException(nameof(sequence), (int)sequence, typeof(Sequence));
+                    }
+            }
+        }
+
+        private void PlanPackageBegin(PlanPackageBeginEventArgs eventArgs)
         {
             // Allows changing how the package plan
         }
 
-        private void detectUpdate(DetectUpdateEventArgs eventArgs)
+        private void PlanMsiFeature(PlanMsiFeatureEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void elevate(ElevateEventArgs eventArgs)
+        private void PlanBegin(PlanBeginEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void restartRequired(RestartRequiredEventArgs eventArgs)
+        private void PlanComplete(PlanCompleteEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void executePackageComplete(ExecutePackageCompleteEventArgs eventArgs)
+        private void DetectUpdate(DetectUpdateEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void executePackageBegin(ExecutePackageBeginEventArgs eventArgs)
+        private void Elevate(ElevateEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void executeFilesInUse(ExecuteFilesInUseEventArgs eventArgs)
+        private void RestartRequiredEncountered(RestartRequiredEventArgs eventArgs)
+        {
+            // IDK
+        }
+
+        private void ExecutePackageComplete(ExecutePackageCompleteEventArgs eventArgs)
+        {
+            // IDK
+        }
+
+        private void ExecutePackageBegin(ExecutePackageBeginEventArgs eventArgs)
+        {
+            // IDK
+        }
+
+        private void ExecuteFilesInUse(ExecuteFilesInUseEventArgs eventArgs)
         {
             // Handle files in use messages?
         }
 
-        private void executeMsiMessage(ExecuteMsiMessageEventArgs eventArgs)
+        private void ExecuteMsiMessage(ExecuteMsiMessageEventArgs eventArgs)
         {
             // IDK handle messages from MSI files
         }
 
-        private void detectPriorBundle(DetectPriorBundleEventArgs eventArgs)
+        private void DetectPriorBundle(DetectPriorBundleEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void applyComplete(ApplyCompleteEventArgs eventArgs)
+        private void ApplyComplete(ApplyCompleteEventArgs eventArgs)
         {
             this.RestartRequired = eventArgs.Restart == ApplyRestart.RestartRequired;
 
@@ -141,32 +210,32 @@ namespace MaxBootstrap.Core
             }
         }
 
-        private void applyBegin(ApplyBeginEventArgs eventArgs)
+        private void ApplyBegin(ApplyBeginEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void error(ErrorEventArgs eventArgs)
+        private void ErrorEcountered(ErrorEventArgs eventArgs)
         {
             // Handle error condition
         }
 
-        private void shutdown(ShutdownEventArgs eventArgs)
+        private void Shutdown(ShutdownEventArgs eventArgs)
         {
             // Handle shutdown
         }
 
-        private void resolveSource(ResolveSourceEventArgs eventArgs)
+        private void ResolveSource(ResolveSourceEventArgs eventArgs)
         {
             // Handle download logic?
         }
 
-        private void detectMsiFeature(DetectMsiFeatureEventArgs eventArgs)
+        private void DetectMsiFeature(DetectMsiFeatureEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void detectPackageComplete(DetectPackageCompleteEventArgs eventArgs)
+        private void DetectPackageComplete(DetectPackageCompleteEventArgs eventArgs)
         {
             IPackage package = this.PackageManager.FindPackageById(eventArgs.PackageId);
 
@@ -176,14 +245,17 @@ namespace MaxBootstrap.Core
             }
         }
 
-        private void detectCompatiblePackage(DetectCompatiblePackageEventArgs eventArgs)
+        private void DetectCompatiblePackage(DetectCompatiblePackageEventArgs eventArgs)
         {
             // IDK
         }
 
-        private void detectRelatedBundle(DetectRelatedBundleEventArgs eventArgs)
+        private void DetectRelatedBundle(DetectRelatedBundleEventArgs eventArgs)
         {
-            // IDK
+            if (eventArgs.Operation == RelatedOperation.MajorUpgrade || eventArgs.Operation == RelatedOperation.MinorUpdate)
+            {
+                this.PageController.ButtonStateManager.UpgradeButton.Visible = true;
+            }
         }
 
         /// <summary>
@@ -193,14 +265,9 @@ namespace MaxBootstrap.Core
         /// The DetectPackageBeginEventArgs contains the ID of the package being detected and the result
         /// of starting the detection.
         /// </param>
-        private void detectPackageBegin(DetectPackageBeginEventArgs eventArgs)
+        private void DetectPackageBegin(DetectPackageBeginEventArgs eventArgs)
         {
         }
-
-        /// <summary>
-        /// Fired when a critical error has been thrown with a message regarding what happened.
-        /// </summary>
-        public event Action<string> OnCriticalError;
 
         /// <summary>
         /// Called when package detection has started.
@@ -209,9 +276,22 @@ namespace MaxBootstrap.Core
         /// The DetectBeginEventArgs contains information on whether the burn bundle is already installed,
         /// number of packages to detect, and the result of starting detection.
         /// </param>
-        private void detectBegin(DetectBeginEventArgs eventArgs)
+        private void DetectBegin(DetectBeginEventArgs eventArgs)
         {
-            this.BurnInstallState = eventArgs.Installed ? BurnInstallState.Present : BurnInstallState.NotPresent;
+            if (eventArgs.Installed)
+            {
+                this.BurnInstallState = BurnInstallState.Present;
+                this.PageController.ButtonStateManager.InstallButton.Visible = true;
+            }
+            else
+            {
+                this.BurnInstallState = BurnInstallState.NotPresent;
+
+                // TODO Have a way for a user to easily enable/disable these buttons
+                this.PageController.ButtonStateManager.UninstallButton.Visible = true;
+                this.PageController.ButtonStateManager.RepairButton.Visible = true;
+                this.PageController.ButtonStateManager.ModifyButton.Visible = true;
+            }
         }
     }
 }

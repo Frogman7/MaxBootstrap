@@ -9,6 +9,6 @@
              d:DataContext="{d:DesignInstance FinishViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            <TextBlock Text="{Binding FinishedText}" FontSize="32"/>
+            <TextBlock Text="{Binding FinishedText}" FontSize="32" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

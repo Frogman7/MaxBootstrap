@@ -9,8 +9,23 @@
              d:DataContext="{d:DesignInstance ProgressViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Viewbox>
-            <TextBlock Text="Progess View"/>
-        </Viewbox>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Installing Package: "/>
+            <TextBlock Text="{Binding CurrentPackageName}"/>
+        </StackPanel>
+
+        <ProgressBar Grid.Row="2" Minimum="0" Maximum="100" Value="{Binding PackageProgress, Mode=OneWay}"/>
+
+        <TextBlock Grid.Row="3" Text="Total Progress: "/>
+
+        <ProgressBar Grid.Row="4" Minimum="4" Maximum="100" Value="{Binding TotalProgress, Mode=OneWay}"/>
     </Grid>
 </UserControl>

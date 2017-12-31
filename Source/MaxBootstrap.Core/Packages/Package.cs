@@ -82,15 +82,15 @@ namespace MaxBootstrap.Core.Packages
         {
             get
             {
-                return this.RequestedState;
+                return this.requestedState;
             }
 
             set
             {
-                this.RequestedState = value;
+                this.requestedState = value;
 
                 // TODO Reconsider this, I mean is this really the best approach?
-                if (this.RequestedState == RequestState.Present)
+                if (this.requestedState == RequestState.Present)
                 {
                     this.IsSelected = true;
                 }

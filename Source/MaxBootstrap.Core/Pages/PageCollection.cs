@@ -26,6 +26,7 @@ namespace MaxBootstrap.Core.Pages
         {
             this.pages = new Dictionary<string, PageActivator>();
             this.installSequence = new List<string>();
+            this.uninstallSequence = new List<string>();
             this.upgradeSequence = new List<string>();
             this.modifySequence = new List<string>();
             this.repairSequence = new List<string>();
@@ -65,6 +66,11 @@ namespace MaxBootstrap.Core.Pages
         public void SetInstallSequence(IEnumerable<string> sequence)
         {
             this.SetSequence(sequence, this.installSequence);
+        }
+
+        public void SetUninstallSequence(IEnumerable<string> sequence)
+        {
+            this.SetSequence(sequence, this.uninstallSequence);
         }
 
         public void SetUpgradeSequence(IEnumerable<string> sequence)

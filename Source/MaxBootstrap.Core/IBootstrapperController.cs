@@ -1,13 +1,15 @@
 ﻿using MaxBootstrap.Core.Packages;
 using System;
 using MaxBootstrap.Core.Enums;
-using MaxBootstrap.Core.Pages;
+using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 
 namespace MaxBootstrap.Core
 {
     public interface IBootstrapperController
     {
         event Action<string> OnCriticalError;
+
+        IntPtr WindowHandle { get; set;  }
 
         int FinalResult { get; }
 
@@ -18,6 +20,8 @@ namespace MaxBootstrap.Core
         bool UpgradeDetected { get; }
 
         bool PreviouslyInstalled { get; }
+
+        LaunchAction LaunchAction { get; }
 
         InstallationResult InstallationResult { get; }
 

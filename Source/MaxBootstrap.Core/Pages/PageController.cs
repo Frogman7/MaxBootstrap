@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MaxBootstrap.UI;
+using System;
+using System.ComponentModel;
+using MaxBootstrap.Core.Enums;
 
 namespace MaxBootstrap.Core.Pages
 {
     public class PageController : ObservableBase, IPageController
     {
+        public event Action<Sequence> SequenceStarted;
+
+        public ButtonStateManager ButtonStateManager { get; protected set; }
+
         private IList<string> sequence;
 
         private IPage currentPage;
 
         private ushort sequenceIndex;
-
-        public ButtonStateManager ButtonStateManager { get; protected set; }
 
         public IPage CurrentPage
         {
@@ -41,10 +46,10 @@ namespace MaxBootstrap.Core.Pages
             this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.StartPage);
             this.ButtonStateManager = new ButtonStateManager();
 
-            // TODO Change hardcoded strings
-            this.ButtonStateManager.NextButton.Text = "Install";
-            this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.StartInstallSequence);
+            this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.GoNext);
             this.ButtonStateManager.BackButton.Command = new DelegateCommand(this.GoBack);
+            this.ButtonStateManager.InstallButton.Command = new DelegateCommand(this.StartInstallSequence);
+            this.ButtonStateManager.UninstallButton.Command = new DelegateCommand(this.StartUninstallSequence);
             this.ButtonStateManager.UpgradeButton.Command = new DelegateCommand(this.StartUpgradeSequence);
             this.ButtonStateManager.ModifyButton.Command = new DelegateCommand(this.StartModifySequence);
             this.ButtonStateManager.RepairButton.Command = new DelegateCommand(this.StartRepairSequence);
@@ -62,12 +67,7 @@ namespace MaxBootstrap.Core.Pages
                 // TODO Consider maybe exiting instead of going all the way back to start
                 this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.StartPage);
 
-                //this.ButtonStateManager.ModifyButton.Visible = false;
-                //this.ButtonStateManager.UpgradeButton.Visible = false;
-                //this.ButtonStateManager.RepairButton.Visible = false;
                 this.ButtonStateManager.BackButton.Visible = false;
-
-                this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.StartInstallSequence);
             }
 
             // TODO Throw error of some kind on else condition
@@ -85,22 +85,27 @@ namespace MaxBootstrap.Core.Pages
 
         public void StartInstallSequence()
         {
-            this.StartSequence(this.PageCollection.InstallSequence);
+            this.StartSequence(Sequence.Install);
+        }
+
+        public void StartUninstallSequence()
+        {
+            this.StartSequence(Sequence.Uninstall);
         }
 
         public void StartUpgradeSequence()
         {
-            this.StartSequence(this.PageCollection.UpgradeSequence);
+            this.StartSequence(Sequence.Upgrade);
         }
 
         public void StartModifySequence()
         {
-            this.StartSequence(this.PageCollection.ModifySequence);
+            this.StartSequence(Sequence.Modify);
         }
 
         public void StartRepairSequence()
         {
-            this.StartSequence(this.PageCollection.RepairSequence);
+            this.StartSequence(Sequence.Repair);
         }
 
         public void GoToErrorPage()
@@ -113,20 +118,56 @@ namespace MaxBootstrap.Core.Pages
             this.CurrentPage = this.PageCollection.GetPage(this.PageCollection.CancelPage);
         }
 
-        private void StartSequence(IEnumerable<string> sequence)
+        private void StartSequence(Sequence sequence)
         {
-            // TODO Change hardcoded strings
-            this.ButtonStateManager.NextButton.Text = "Next";
-            this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.GoNext);
-
+            this.ButtonStateManager.InstallButton.Visible = false;
+            this.ButtonStateManager.UninstallButton.Visible = false;
             this.ButtonStateManager.ModifyButton.Visible = false;
             this.ButtonStateManager.UpgradeButton.Visible = false;
             this.ButtonStateManager.RepairButton.Visible = false;
+
+            this.ButtonStateManager.NextButton.Visible = true;
             this.ButtonStateManager.BackButton.Visible = true;
 
             this.sequenceIndex = 0;
 
-            this.sequence = sequence.ToList();
+            switch (sequence)
+            {
+                case Sequence.Install:
+                    {
+                        this.sequence = this.PageCollection.InstallSequence.ToList();
+                        break;
+                    }
+                case Sequence.Modify:
+                    {
+                        this.sequence = this.PageCollection.ModifySequence.ToList();
+                        break;
+                    }
+                case Sequence.Upgrade:
+                    {
+                        this.sequence = this.PageCollection.UpgradeSequence.ToList();
+                        break;
+                    }
+                case Sequence.Repair:
+                    {
+                        this.sequence = this.PageCollection.RepairSequence.ToList();
+                        break;
+                    }
+                case Sequence.Uninstall:
+                    {
+                        this.sequence = this.PageCollection.UninstallSequence.ToList();
+                        break;
+                    }
+                default:
+                    {
+                        throw new InvalidEnumArgumentException(nameof(sequence), (int)sequence, typeof(Sequence));
+                    }
+            }
+
+            if (this.SequenceStarted != null)
+            {
+                this.SequenceStarted(sequence);
+            }
 
             this.CurrentPage = this.PageCollection.GetPage(this.sequence[0]);
         }

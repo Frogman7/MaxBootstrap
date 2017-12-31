@@ -2,10 +2,12 @@
 using MaxBootstrap.Core.View;
 using MaxBootstrap.UI.Viewmodels.Interfaces;
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MaxBootstrap.UI.Viewmodels.Concretes
 {
-    public class ProgressViewmodel : ViewmodelBase, IProgressViewmodel
+    public class ProgressViewmodel : ViewmodelBase, IProgressViewmodel, INotifyPropertyChanged
     {
         public ushort TotalProgress { get; protected set; }
 
@@ -16,11 +18,23 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         public ProgressViewmodel(IBootstrapperController bootstrapperController)
             : base(bootstrapperController)
         {
-            this.BootstrapperController.WixBootstrapper.PlanPackageBegin += (sender, args) => this.PlanPackageBegin(args);
+            this.BootstrapperController.WixBootstrapper.CacheAcquireProgress += (sender, args) => this.CacheAcquireProgress(args);
             this.BootstrapperController.WixBootstrapper.ExecuteProgress += (sender, args) => this.ExecuteProgress(args);
             this.BootstrapperController.WixBootstrapper.ExecutePackageBegin += (sender, args) => this.ExecutePackageBegin(args);
+            this.BootstrapperController.WixBootstrapper.PlanComplete += (sender, args) => this.PlanComplete(args);
 
-            bootstrapperController.PageController.ButtonStateManager.NextButton.Enabled = false;
+            this.BootstrapperController.PageController.ButtonStateManager.BackButton.Visible = false;
+            this.BootstrapperController.PageController.ButtonStateManager.CancelButton.Visible = true;
+            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled = false;
+
+            this.BootstrapperController.WixBootstrapper.Engine.Plan(this.BootstrapperController.LaunchAction);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void CacheAcquireProgress(CacheAcquireProgressEventArgs args)
+        {
+
         }
 
         private void ExecutePackageBegin(ExecutePackageBeginEventArgs args)
@@ -28,27 +42,35 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
             var package = this.BootstrapperController.PackageManager.FindPackageById(args.PackageId);
 
             this.CurrentPackageName = package.DisplayName;
+            this.PackageProgress = 0;
+            this.NotifyPropertyChanged(nameof(this.CurrentPackageName));
+            this.NotifyPropertyChanged(nameof(this.PackageProgress));
         }
 
         private void ExecuteProgress(ExecuteProgressEventArgs args)
         {
             this.PackageProgress = (ushort)args.ProgressPercentage;
 
+            this.NotifyPropertyChanged(nameof(this.PackageProgress));
+
             this.TotalProgress += (ushort)args.OverallPercentage;
 
-            if (this.TotalProgress == 100)
+            this.NotifyPropertyChanged(nameof(this.TotalProgress));
+        }
+
+        private void PlanComplete(PlanCompleteEventArgs args)
+        {
+            if (args.Status >= 0)
             {
-                this.BootstrapperController.PageController.GoNext();
+                this.BootstrapperController.WixBootstrapper.Engine.Apply(System.IntPtr.Zero);
             }
         }
 
-        private void PlanPackageBegin(PlanPackageBeginEventArgs args)
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var package = this.BootstrapperController.PackageManager.FindPackageById(args.PackageId);
-
-            if (package == null)
+            if (propertyName != null && this.PropertyChanged != null)
             {
-                
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
