@@ -14,6 +14,8 @@
             this.InitializeComponent();
 
             this.Viewmodel = errorViewmodel;
+
+            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

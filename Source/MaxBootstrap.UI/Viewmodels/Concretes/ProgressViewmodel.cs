@@ -18,19 +18,23 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         public ProgressViewmodel(IBootstrapperController bootstrapperController)
             : base(bootstrapperController)
         {
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public override void Activate()
+        {
             this.BootstrapperController.WixBootstrapper.CacheAcquireProgress += (sender, args) => this.CacheAcquireProgress(args);
             this.BootstrapperController.WixBootstrapper.ExecuteProgress += (sender, args) => this.ExecuteProgress(args);
             this.BootstrapperController.WixBootstrapper.ExecutePackageBegin += (sender, args) => this.ExecutePackageBegin(args);
             this.BootstrapperController.WixBootstrapper.PlanComplete += (sender, args) => this.PlanComplete(args);
 
-            this.BootstrapperController.PageController.ButtonStateManager.BackButton.Visible = false;
-            this.BootstrapperController.PageController.ButtonStateManager.CancelButton.Visible = true;
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled = false;
+            this.BootstrapperController.ViewController.ButtonStateManager.BackButton.Visible = false;
+            this.BootstrapperController.ViewController.ButtonStateManager.CancelButton.Visible = true;
+            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Enabled = false;
 
             this.BootstrapperController.WixBootstrapper.Engine.Plan(this.BootstrapperController.LaunchAction);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void CacheAcquireProgress(CacheAcquireProgressEventArgs args)
         {

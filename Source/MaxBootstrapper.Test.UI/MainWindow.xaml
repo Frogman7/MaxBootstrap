@@ -21,7 +21,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black">
-                    <ContentControl Content="{Binding CurrentPage}"/>
+                    <ContentControl Content="{Binding CurrentView}"/>
                 </Border>
                 <DockPanel Grid.Row="1" LastChildFill="False">
                     <DockPanel.Resources>

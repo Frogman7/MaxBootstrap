@@ -19,14 +19,17 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         public FinishViewmodel(IBootstrapperController bootstrapperController)
             : base(bootstrapperController)
         {
-            this.BootstrapperController.PageController.ButtonStateManager.CancelButton.Enabled = false;
-
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Text = "Finish";
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Visible = true;
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Enabled = true;
-            this.BootstrapperController.PageController.ButtonStateManager.NextButton.Command = new DelegateCommand(() => { Environment.Exit(0); });
-
             this.FinishedText = "Installation Fished Successfully";
+        }
+
+        public override void Activate()
+        {
+            this.BootstrapperController.ViewController.ButtonStateManager.CancelButton.Enabled = false;
+
+            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Text = "Finish";
+            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Visible = true;
+            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Enabled = true;
+            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Command = new DelegateCommand(() => { Environment.Exit(0); });
         }
     }
 }

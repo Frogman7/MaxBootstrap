@@ -21,5 +21,9 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
             : base(bootstrapperController)
         {
         }
+
+        public override void Activate()
+        {
+        }
     }
 }

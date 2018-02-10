@@ -57,16 +57,16 @@
     <Compile Include="Converters\DisplayToVisibilityConverter.cs" />
     <Compile Include="Converters\FeatureStateToNullableBoolConverter.cs" />
     <Compile Include="CustomControls\DialogHost.cs" />
-    <Compile Include="Extensions\PageControllerExtensions.cs" />
+    <Compile Include="Extensions\ViewControllerExtensions.cs" />
     <Compile Include="Models\ConfigurationItem.cs" />
-    <Compile Include="Pages\CancelPage.cs" />
+    <!--<Compile Include="Pages\CancelPage.cs" />
     <Compile Include="Pages\ConfigurationPage.cs" />
     <Compile Include="Pages\ErrorPage.cs" />
     <Compile Include="Pages\FeaturePage.cs" />
     <Compile Include="Pages\FinishPage.cs" />
     <Compile Include="Pages\OptionPage.cs" />
     <Compile Include="Pages\ProgressPage.cs" />
-    <Compile Include="Pages\WelcomePage.cs" />
+    <Compile Include="Pages\WelcomePage.cs" />-->
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

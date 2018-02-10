@@ -29,7 +29,7 @@ namespace MaxBootstrap.Core
 
         MaxBootstrapper WixBootstrapper { get; }
 
-        IPageController PageController { get; }
+        IViewController ViewController { get; }
 
         IPackageManager PackageManager { get; }
     }

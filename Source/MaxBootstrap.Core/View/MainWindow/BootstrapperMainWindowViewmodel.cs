@@ -11,20 +11,17 @@ namespace MaxBootstrap.Core.View
         {
             this.BootstrapperController = bootstrapperController;
 
-            ((PageController) BootstrapperController.PageController).PropertyChanged += (sender, args) =>
+            BootstrapperController.ViewController.ViewChange += (view) => 
             {
-                if (args.PropertyName.Equals("CurrentPage"))
-                {
-                    this.NotifyPropertyChanged("CurrentPage");
-                }
+                this.NotifyPropertyChanged(nameof(CurrentView));
             };
         }
 
-        public FrameworkElement CurrentPage
+        public FrameworkElement CurrentView
         {
             get
             {
-                return this.BootstrapperController.PageController.CurrentPage.ViewContent;
+                return this.BootstrapperController.ViewController.CurrentView as FrameworkElement;
             }
         }
     }

@@ -18,7 +18,7 @@ namespace MaxBootstrap.Core
 
         public BurnInstallState BurnInstallState { get; protected set; }
 
-        public IPageController PageController { get; protected set; }
+        public IViewController ViewController { get; protected set; }
 
         public bool RestartRequired { get; protected set; }
 
@@ -40,13 +40,13 @@ namespace MaxBootstrap.Core
 
         public LaunchAction LaunchAction { get; protected set; }
 
-        public BootstrapperController(MaxBootstrapper wixBootstrapper, IPageController pageController, IPackageManager packageManager)
+        public BootstrapperController(MaxBootstrapper wixBootstrapper, IViewController pageController, IPackageManager packageManager)
         {
             this.WixBootstrapper = wixBootstrapper;
-            this.PageController = pageController;
+            this.ViewController = pageController;
             this.PackageManager = packageManager;
 
-            this.PageController.SequenceStarted += this.SetLaunchAction;
+            this.ViewController.SequenceStarted += this.SetLaunchAction;
 
             this.WixBootstrapper.Elevate += (sender, eventArgs) => this.Elevate(eventArgs);
             this.WixBootstrapper.Error += (sender, eventArgs) => this.ErrorEcountered(eventArgs);
@@ -197,7 +197,7 @@ namespace MaxBootstrap.Core
             if (this.InstallationResult == InstallationResult.Error ||
                 this.InstallationResult == InstallationResult.Cancelled)
             {
-                this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.PageController.GoToErrorPage()));
+                this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.ViewController.GoToErrorView()));
             }
             else
             {
@@ -206,7 +206,7 @@ namespace MaxBootstrap.Core
                     this.RestartRequired = true;
                 }
 
-                this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.PageController.GoNext()));
+                this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.ViewController.GoNext()));
             }
         }
 
@@ -254,7 +254,7 @@ namespace MaxBootstrap.Core
         {
             if (eventArgs.Operation == RelatedOperation.MajorUpgrade || eventArgs.Operation == RelatedOperation.MinorUpdate)
             {
-                this.PageController.ButtonStateManager.UpgradeButton.Visible = true;
+                this.ViewController.ButtonStateManager.UpgradeButton.Visible = true;
             }
         }
 
@@ -283,15 +283,15 @@ namespace MaxBootstrap.Core
                 this.BurnInstallState = BurnInstallState.Present;
 
                 // TODO Have a way for a user to easily enable/disable these buttons
-                this.PageController.ButtonStateManager.UninstallButton.Visible = true;
-                this.PageController.ButtonStateManager.RepairButton.Visible = true;
-                this.PageController.ButtonStateManager.ModifyButton.Visible = true;
+                this.ViewController.ButtonStateManager.UninstallButton.Visible = true;
+                this.ViewController.ButtonStateManager.RepairButton.Visible = true;
+                this.ViewController.ButtonStateManager.ModifyButton.Visible = true;
             }
             else
             {
                 this.BurnInstallState = BurnInstallState.NotPresent;
 
-                this.PageController.ButtonStateManager.InstallButton.Visible = true;
+                this.ViewController.ButtonStateManager.InstallButton.Visible = true;
             }
         }
     }

@@ -6,6 +6,6 @@ namespace MaxBootstrap.Core.View
     {
         IBootstrapperController BootstrapperController { get; }
 
-        FrameworkElement CurrentPage { get; }
+        FrameworkElement CurrentView { get; }
     }
 }

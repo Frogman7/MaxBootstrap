@@ -14,6 +14,8 @@ namespace MaxBootstrap.UI.Views
             this.InitializeComponent();
 
             this.Viewmodel = configurationViewmodel;
+
+            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

@@ -7,26 +7,25 @@ namespace MaxBootstrap.UI.Views
     /// <summary>
     /// Interaction logic for ProgressView.xaml
     /// </summary>
-    public partial class ProgressView : UserControl, IView
+    public partial class ProgressView : IView
     {
         public ProgressView(IProgressViewmodel progressViewmodel)
         {
             this.InitializeComponent();
 
             this.Viewmodel = progressViewmodel;
+
+            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel
         {
             get
             {
-                return (IViewmodel)this.DataContext;
+                return this.DataContext as IViewmodel;
             }
 
-            set
-            {
-                this.DataContext = value;
-            }
+            set { this.DataContext = value; }
         }
     }
 }

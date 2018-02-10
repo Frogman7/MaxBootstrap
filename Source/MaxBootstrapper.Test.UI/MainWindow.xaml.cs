@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MaxBootstrap.UI.Pages;
 
 namespace MaxBootstrapper.Test.UI
 {
@@ -43,7 +42,7 @@ namespace MaxBootstrapper.Test.UI
 
         private void InitializePageController()
         {
-            PageControllerExtensions.SetDefaultSequences(this.Viewmodel.BootstrapperController.PageController, this.bootstrapperController);
+            ViewControllerExtensions.SetDefaultSequences(this.Viewmodel.BootstrapperController.ViewController, this.bootstrapperController);
         }
     }
 }

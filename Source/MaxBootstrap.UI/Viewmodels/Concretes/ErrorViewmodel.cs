@@ -11,6 +11,11 @@ namespace MaxBootstrap.UI.Viewmodels.Concretes
         {
         }
 
+        public override void Activate()
+        {
+            this.NotifyPropertyChanged(nameof(ErrorMessageText));
+        }
+
         public string ErrorMessageText
         {
             get { return this.BootstrapperController.Error; }

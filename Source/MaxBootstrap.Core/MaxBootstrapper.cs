@@ -75,7 +75,7 @@
             // TODO Add some error check and log it if it should fail to find a type inheriting from the base
             var type = asm.GetTypes().First(t => t.GetInterfaces().Contains(typeof(IBootstrapperMainWindow)));
 
-            var bootstrapperController = new BootstrapperController(this, new PageController(new PageCollection()), new PackageManager());
+            var bootstrapperController = new BootstrapperController(this, new ViewController(new ViewCollection()), new PackageManager());
 
             var window = (Window)Activator.CreateInstance(type, new object[] { bootstrapperController });
 
