@@ -4,9 +4,8 @@ using MaxBootstrap.UI;
 using System;
 using System.ComponentModel;
 using MaxBootstrap.Core.Enums;
-using MaxBootstrap.Core.View;
 
-namespace MaxBootstrap.Core.Pages
+namespace MaxBootstrap.Core.View
 {
     public class ViewController : IViewController
     {

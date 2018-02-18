@@ -1,7 +1,6 @@
-﻿using MaxBootstrap.Core.View;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace MaxBootstrap.Core.Pages
+namespace MaxBootstrap.Core.View
 {
     public class ViewCollection
     {

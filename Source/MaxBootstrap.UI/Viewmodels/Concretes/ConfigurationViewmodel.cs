@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MaxBootstrap.Core;
-using MaxBootstrap.Core.View;
 using MaxBootstrap.UI.Models;
 using MaxBootstrap.UI.Viewmodels.Interfaces;
 

@@ -9,10 +9,11 @@
 
     using MaxBootstrap.Core.Configuration.Loaders;
     using MaxBootstrap.Core.Packages;
-    using MaxBootstrap.Core.Pages;
 
     using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
     using Helpers;
+    using MaxBootstrap.Core.View;
+    using MaxBootstrap.Core.View.MainWindow;
 
     public class MaxBootstrapper : BootstrapperApplication
     {

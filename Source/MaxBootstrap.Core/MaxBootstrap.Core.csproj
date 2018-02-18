@@ -76,24 +76,21 @@
     <Compile Include="Packages\IPackageManager.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Packages\PackageManager.cs" />
-    <Compile Include="Pages\ViewActivator.cs" />
-    <Compile Include="View\IView.cs" />
     <Compile Include="IBootstrapperController.cs" />
+    <Compile Include="View\ButtonState.cs" />
+    <Compile Include="View\ButtonStateManager.cs" />
+    <Compile Include="View\IView.cs" />
+    <Compile Include="View\IViewController.cs" />
+    <Compile Include="View\IViewmodel.cs" />
     <Compile Include="View\MainWindow\BootstrapperMainWindowViewmodel.cs" />
     <Compile Include="View\MainWindow\IBootstrapperMainWindowView.cs" />
     <Compile Include="MaxBootstrapper.cs" />
-    <Compile Include="Pages\ButtonState.cs" />
-    <Compile Include="Pages\ButtonStateManager.cs" />
-    <Compile Include="Pages\IView.cs" />
-    <Compile Include="Pages\IViewController.cs" />
     <Compile Include="ObservableBase.cs" />
-    <Compile Include="Pages\ViewBase.cs" />
-    <Compile Include="Pages\ViewCollection.cs" />
-    <Compile Include="Pages\ViewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MainWindow\IBootstrapperMainWindowViewmodel.cs" />
-    <Compile Include="View\IViewmodel.cs" />
-    <Compile Include="View\ViewmodelBase.cs" />
+    <Compile Include="View\ViewActivator.cs" />
+    <Compile Include="View\ViewCollection.cs" />
+    <Compile Include="View\ViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

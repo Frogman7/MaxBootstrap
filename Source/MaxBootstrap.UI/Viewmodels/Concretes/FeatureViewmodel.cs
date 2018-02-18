@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MaxBootstrap.Core;
 using MaxBootstrap.Core.Packages;
-using MaxBootstrap.Core.View;
 using MaxBootstrap.UI.Viewmodels.Interfaces;
 
 namespace MaxBootstrap.UI.Viewmodels.Concretes

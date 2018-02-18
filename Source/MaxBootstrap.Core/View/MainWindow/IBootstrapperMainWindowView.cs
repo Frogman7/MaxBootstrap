@@ -1,6 +1,4 @@
-﻿using MaxBootstrap.Core.View;
-
-namespace MaxBootstrap.Core
+﻿namespace MaxBootstrap.Core.View.MainWindow
 {
     public interface IBootstrapperMainWindow
     {

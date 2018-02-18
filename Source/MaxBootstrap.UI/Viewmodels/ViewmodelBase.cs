@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using MaxBootstrap.Core;
+using MaxBootstrap.Core.View;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MaxBootstrap.Core.View
+namespace MaxBootstrap.UI.Viewmodels
 {
     public abstract class ViewmodelBase : IViewmodel, INotifyPropertyChanged
     {

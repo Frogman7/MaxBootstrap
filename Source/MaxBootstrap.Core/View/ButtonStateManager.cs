@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace MaxBootstrap.Core.Pages
+namespace MaxBootstrap.Core.View
 {
     public class ButtonStateManager : IEnumerable<ButtonState>
     {

@@ -1,7 +1,6 @@
-﻿using MaxBootstrap.Core.View;
-using System;
+﻿using System;
 
-namespace MaxBootstrap.Core.Pages
+namespace MaxBootstrap.Core.View
 {
     public class ViewActivator
     {

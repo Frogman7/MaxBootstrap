@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using MaxBootstrap.Core.Pages;
 
-namespace MaxBootstrap.Core.View
+namespace MaxBootstrap.Core.View.MainWindow
 {
     public class BootstrapperMainWindowViewmodel : ObservableBase, IBootstrapperMainWindowViewmodel
     {

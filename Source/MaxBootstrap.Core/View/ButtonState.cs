@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace MaxBootstrap.Core.Pages
+namespace MaxBootstrap.Core.View
 {
     public class ButtonState : ObservableBase
     {

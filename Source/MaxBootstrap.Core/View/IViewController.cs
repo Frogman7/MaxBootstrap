@@ -1,9 +1,7 @@
 ﻿using MaxBootstrap.Core.Enums;
-using MaxBootstrap.Core.Pages;
-using MaxBootstrap.Core.View;
 using System;
 
-namespace MaxBootstrap.Core
+namespace MaxBootstrap.Core.View
 {
     public interface IViewController
     {

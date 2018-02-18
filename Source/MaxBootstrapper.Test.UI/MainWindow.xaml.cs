@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace MaxBootstrapper.Test.UI
+﻿namespace MaxBootstrapper.Test.UI
 {
     using MaxBootstrap.Core;
-    using MaxBootstrap.Core.View;
+    using MaxBootstrap.Core.View.MainWindow;
     using MaxBootstrap.UI.Extensions;
-    using MaxBootstrap.UI.Models;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,7 +19,7 @@ namespace MaxBootstrapper.Test.UI
 
             this.Viewmodel = viewModel;
 
-            this.InitializePageController();
+            this.InitializeViewController();
 
             this.InitializeComponent();
         }
@@ -40,7 +37,7 @@ namespace MaxBootstrapper.Test.UI
             }
         }
 
-        private void InitializePageController()
+        private void InitializeViewController()
         {
             ViewControllerExtensions.SetDefaultSequences(this.Viewmodel.BootstrapperController.ViewController, this.bootstrapperController);
         }

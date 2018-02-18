@@ -2,6 +2,7 @@
 using System;
 using MaxBootstrap.Core.Enums;
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+using MaxBootstrap.Core.View;
 
 namespace MaxBootstrap.Core
 {

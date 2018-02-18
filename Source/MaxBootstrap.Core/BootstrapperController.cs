@@ -2,8 +2,8 @@
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using MaxBootstrap.Core.Enums;
 using MaxBootstrap.Core.Packages;
-using MaxBootstrap.Core.Pages;
 using System.ComponentModel;
+using MaxBootstrap.Core.View;
 
 namespace MaxBootstrap.Core
 {
@@ -40,10 +40,10 @@ namespace MaxBootstrap.Core
 
         public LaunchAction LaunchAction { get; protected set; }
 
-        public BootstrapperController(MaxBootstrapper wixBootstrapper, IViewController pageController, IPackageManager packageManager)
+        public BootstrapperController(MaxBootstrapper wixBootstrapper, IViewController viewController, IPackageManager packageManager)
         {
             this.WixBootstrapper = wixBootstrapper;
-            this.ViewController = pageController;
+            this.ViewController = viewController;
             this.PackageManager = packageManager;
 
             this.ViewController.SequenceStarted += this.SetLaunchAction;

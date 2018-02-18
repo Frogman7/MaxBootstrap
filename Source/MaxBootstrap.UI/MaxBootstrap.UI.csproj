@@ -59,6 +59,7 @@
     <Compile Include="CustomControls\DialogHost.cs" />
     <Compile Include="Extensions\ViewControllerExtensions.cs" />
     <Compile Include="Models\ConfigurationItem.cs" />
+    <Compile Include="Viewmodels\ViewmodelBase.cs" />
     <!--<Compile Include="Pages\CancelPage.cs" />
     <Compile Include="Pages\ConfigurationPage.cs" />
     <Compile Include="Pages\ErrorPage.cs" />

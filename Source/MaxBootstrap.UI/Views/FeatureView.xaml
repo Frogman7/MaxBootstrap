@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:MaxBootstrap.UI.Converters"
              xmlns:features="clr-namespace:MaxBootstrap.Core.Packages.Features;assembly=MaxBootstrap.Core"
-             xmlns:interfaces="clr-namespace:MaxBootstrap.UI.Viewmodels.Interfaces"
+             xmlns:viewmodels="clr-namespace:MaxBootstrap.UI.Viewmodels.Concretes"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance FeatureViewmodel}"
+             d:DataContext="{d:DesignInstance viewmodels:FeatureViewmodel}"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
