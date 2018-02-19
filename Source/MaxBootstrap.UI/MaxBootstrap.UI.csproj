@@ -81,44 +81,44 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Viewmodels\Concretes\CancelViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\ConfigurationViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\ErrorViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\FeatureViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\FinishViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\ICancelViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IConfigurationViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IErrorViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IFeatureViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IFinishViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IOptionViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IProgressViewmodel.cs" />
-    <Compile Include="Viewmodels\Interfaces\IWelcomeViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\OptionViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\ProgressViewmodel.cs" />
-    <Compile Include="Viewmodels\Concretes\WelcomeViewmodel.cs" />
-    <Compile Include="Views\CancelView.xaml.cs">
+    <Compile Include="Views\Cancel\CancelViewmodel.cs" />
+    <Compile Include="Views\Configuration\ConfigurationViewmodel.cs" />
+    <Compile Include="Views\Error\ErrorViewmodel.cs" />
+    <Compile Include="Views\Features\FeatureViewmodel.cs" />
+    <Compile Include="Views\Finish\FinishViewmodel.cs" />
+    <Compile Include="Views\Cancel\ICancelViewmodel.cs" />
+    <Compile Include="Views\Configuration\IConfigurationViewmodel.cs" />
+    <Compile Include="Views\Error\IErrorViewmodel.cs" />
+    <Compile Include="Views\Features\IFeatureViewmodel.cs" />
+    <Compile Include="Views\Finish\IFinishViewmodel.cs" />
+    <Compile Include="Views\Options\IOptionsViewmodel.cs" />
+    <Compile Include="Views\Progress\IProgressViewmodel.cs" />
+    <Compile Include="Views\Welcome\IWelcomeViewmodel.cs" />
+    <Compile Include="Views\Options\OptionsViewmodel.cs" />
+    <Compile Include="Views\Progress\ProgressViewmodel.cs" />
+    <Compile Include="Views\Welcome\WelcomeViewmodel.cs" />
+    <Compile Include="Views\Cancel\CancelView.xaml.cs">
       <DependentUpon>CancelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConfigurationView.xaml.cs">
+    <Compile Include="Views\Configuration\ConfigurationView.xaml.cs">
       <DependentUpon>ConfigurationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ErrorView.xaml.cs">
+    <Compile Include="Views\Error\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FeatureView.xaml.cs">
+    <Compile Include="Views\Features\FeatureView.xaml.cs">
       <DependentUpon>FeatureView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FinishView.xaml.cs">
+    <Compile Include="Views\Finish\FinishView.xaml.cs">
       <DependentUpon>FinishView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OptionView.xaml.cs">
-      <DependentUpon>OptionView.xaml</DependentUpon>
+    <Compile Include="Views\Options\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProgressView.xaml.cs">
+    <Compile Include="Views\Progress\ProgressView.xaml.cs">
       <DependentUpon>ProgressView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WelcomeView.xaml.cs">
+    <Compile Include="Views\Welcome\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -139,35 +139,35 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Views\CancelView.xaml">
+    <Page Include="Views\Cancel\CancelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConfigurationView.xaml">
+    <Page Include="Views\Configuration\ConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ErrorView.xaml">
+    <Page Include="Views\Error\ErrorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FeatureView.xaml">
+    <Page Include="Views\Features\FeatureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FinishView.xaml">
+    <Page Include="Views\Finish\FinishView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OptionView.xaml">
+    <Page Include="Views\Options\OptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProgressView.xaml">
+    <Page Include="Views\Progress\ProgressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WelcomeView.xaml">
+    <Page Include="Views\Welcome\WelcomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

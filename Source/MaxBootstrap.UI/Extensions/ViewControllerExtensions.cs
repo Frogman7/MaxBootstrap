@@ -1,7 +1,11 @@
 ﻿using MaxBootstrap.Core;
 using MaxBootstrap.Core.View;
-using MaxBootstrap.UI.Viewmodels.Concretes;
-using MaxBootstrap.UI.Views;
+using MaxBootstrap.UI.Views.Cancel;
+using MaxBootstrap.UI.Views.Error;
+using MaxBootstrap.UI.Views.Feature;
+using MaxBootstrap.UI.Views.Finish;
+using MaxBootstrap.UI.Views.Progress;
+using MaxBootstrap.UI.Views.Welcome;
 using System.Collections.Generic;
 
 namespace MaxBootstrap.UI.Extensions
