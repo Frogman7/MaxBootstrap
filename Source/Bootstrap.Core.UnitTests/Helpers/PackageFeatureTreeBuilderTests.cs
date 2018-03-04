@@ -76,31 +76,31 @@ namespace Bootstrap.Core.UnitTests.Helpers
             var featureInfos = new List<FeatureInfo>();
 
             // Package 1 Features, everything is sort of in descending order of most signifcant to least significant
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Soda", "The Soda Feature", "A 2 Litre of Soda", 874, string.Empty));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Pizza", "The Pizza Feature", "A pizza", 1914, string.Empty));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Pepperoni", "The Pepperoni Feature", "Processed meat", 812, "Pizza"));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Mushroom", "The Mushroom Feature", "Fresh diced mushrooms", 315, "Pizza"));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Olive", "The Olive Feature", "Diced black olives", 223, "Pizza"));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Bell Pepper", "The Bell Pepper Feature", "Freshly chopped green bell peppers", 366, "Pizza"));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Cheese", "The Cheese Feature", "Delious cheese", 644, "Pizza"));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Mozzarella", "The Mozzarella Cheese Feature", "Mozzarella style cheese", 411, "Cheese"));
-            featureInfos.Add(this.buildFeatureInfo("Package 1", "Cheddar", "The Cheddar Cheese Feature", "Mozzarella style cheese", 397, "Cheese"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Soda", "The Soda Feature", "A 2 Litre of Soda", 874, string.Empty));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Pizza", "The Pizza Feature", "A pizza", 1914, string.Empty));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Pepperoni", "The Pepperoni Feature", "Processed meat", 812, "Pizza"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Mushroom", "The Mushroom Feature", "Fresh diced mushrooms", 315, "Pizza"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Olive", "The Olive Feature", "Diced black olives", 223, "Pizza"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Bell Pepper", "The Bell Pepper Feature", "Freshly chopped green bell peppers", 366, "Pizza"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Cheese", "The Cheese Feature", "Delious cheese", 644, "Pizza"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Mozzarella", "The Mozzarella Cheese Feature", "Mozzarella style cheese", 411, "Cheese"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 1", "Cheddar", "The Cheddar Cheese Feature", "Mozzarella style cheese", 397, "Cheese"));
 
             // Package 2 Features, kinda all over the place
-            featureInfos.Add(this.buildFeatureInfo("Package 2", "ExtraFonts", "The Extra Fonts Feature", "Adds additional fonts", 3472, "Plugins"));
-            featureInfos.Add(this.buildFeatureInfo("Package 2", "Plugins", "The Document Feature", "Adds Plugin Support", 9864, "Writer"));
-            featureInfos.Add(this.buildFeatureInfo("Package 2", "ExtraDocTypes", "The Extra Document Types Feature", "Adds support for additional document types", 2151, "Plugins"));
-            featureInfos.Add(this.buildFeatureInfo("Package 2", "Writer", "The Document Feature", "The document editor", 29513, "Office Suite"));
-            featureInfos.Add(this.buildFeatureInfo("Package 2", "Office Suite", "Product Features", "The base Office software", 4148554, string.Empty));
-            featureInfos.Add(this.buildFeatureInfo("Package 2", "Spreadsheet", "The Spreadsheet Feature", "The spreadsheet editor", 24119, "Office Suite"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 2", "ExtraFonts", "The Extra Fonts Feature", "Adds additional fonts", 3472, "Plugins"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 2", "Plugins", "The Document Feature", "Adds Plugin Support", 9864, "Writer"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 2", "ExtraDocTypes", "The Extra Document Types Feature", "Adds support for additional document types", 2151, "Plugins"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 2", "Writer", "The Document Feature", "The document editor", 29513, "Office Suite"));
+            featureInfos.Add(this.BuildFeatureInfo("Package 2", "Office Suite", "Product Features", "The base Office software", 4148554, string.Empty));
+            featureInfos.Add(this.BuildFeatureInfo("Package 2", "Spreadsheet", "The Spreadsheet Feature", "The spreadsheet editor", 24119, "Office Suite"));
 
             // Package 3 Features, keeping it simple
-            featureInfos.Add(this.buildFeatureInfo("Package 3", "Product Features", "The Main Product Feature", "The product", 3472, string.Empty));
+            featureInfos.Add(this.BuildFeatureInfo("Package 3", "Product Features", "The Main Product Feature", "The product", 3472, string.Empty));
 
             return featureInfos;
         }
 
-        private FeatureInfo buildFeatureInfo(string packageId, string featureId, string title, string description, uint size, string parent, string directory = null)
+        private FeatureInfo BuildFeatureInfo(string packageId, string featureId, string title, string description, uint size, string parent, string directory = null)
         {
             return new FeatureInfo()
             {

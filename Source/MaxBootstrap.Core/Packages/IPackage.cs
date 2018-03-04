@@ -16,8 +16,6 @@ namespace MaxBootstrap.Core.Packages
 
         string DisplayName { get; }
 
-        bool IsSelected { get; set; }
-
         void AddFeature(IFeature feature);
 
         IFeature SearchFeature(string featureId);

@@ -1,9 +1,5 @@
 ﻿using MaxBootstrap.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Xml.Serialization;
 
 namespace MaxBootstrap.Core.Configuration
@@ -27,6 +23,9 @@ namespace MaxBootstrap.Core.Configuration
 
         [XmlAttribute("Description")]
         public string Description { get; set; }
+
+        [XmlAttribute("Level")]
+        public short Level { get; set; }
 
         [XmlAttribute("Display")]
         public FeatureEnums.Display Display { get; set; }

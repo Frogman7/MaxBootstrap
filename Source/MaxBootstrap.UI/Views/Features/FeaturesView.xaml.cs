@@ -1,4 +1,4 @@
-﻿namespace MaxBootstrap.UI.Views.Feature
+﻿namespace MaxBootstrap.UI.Views.Features
 {
     using System.Windows.Controls;
 
@@ -7,9 +7,9 @@
     /// <summary>
     /// Interaction logic for FeatureView.xaml
     /// </summary>
-    public partial class FeatureView : UserControl, IView
+    public partial class FeaturesView : UserControl, IView
     {
-        public FeatureView(IFeatureViewmodel featureViewmodel)
+        public FeaturesView(IFeaturesViewmodel featureViewmodel)
         {
             this.InitializeComponent();
 

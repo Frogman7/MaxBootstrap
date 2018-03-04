@@ -17,5 +17,23 @@ namespace MaxBootstrap.Core.Configuration
 
         [XmlAttribute("Description")]
         public string Description { get; set; }
+
+        [XmlAttribute("Version")]
+        public string Version { get; set; }
+
+        [XmlAttribute("Vital")]
+        public string Vital { get; set; }
+
+        [XmlAttribute("ProductCode")]
+        public Guid ProductCode { get; set; }
+
+        [XmlAttribute("PackageType")]
+        public string PackageType { get; set; }
+
+        [XmlAttribute("Permanent")]
+        public string Permanent { get; set; }
+
+        [XmlAttribute("Cache")]
+        public string Cache { get; set; }
     }
 }

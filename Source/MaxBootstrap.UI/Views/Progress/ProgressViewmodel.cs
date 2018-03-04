@@ -1,5 +1,4 @@
 ﻿using MaxBootstrap.Core;
-using MaxBootstrap.UI.Viewmodels;
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MaxBootstrap.Core.Enums;
 
 namespace MaxBootstrap.Core.Packages.Features
 {
     public interface IFeature
     {
-        event Action<FeatureSelectedState.SelectedState> OnFeatureStateChange;
-
-        IEnumerable<IFeature> SubFeatures { get; }
-
         int SubFeatureCount { get; }
 
         string FeatureId { get; }
@@ -23,9 +15,9 @@ namespace MaxBootstrap.Core.Packages.Features
 
         string Description { get; }
 
-        FeatureEnums.Display Display { get;  }
+        FeatureEnums.Display Display { get; }
 
-        FeatureSelectedState.SelectedState SelectedState { get; set;  }
+        IEnumerable<IFeature> SubFeatures { get; }
 
         void AddSubFeature(IFeature feature);
 

@@ -13,47 +13,14 @@ namespace MaxBootstrap.Core.Packages
 
         private IList<IFeature> features;
 
-        private bool isSelected;
-
         public string ID { get; protected set; }
 
         public string DisplayName { get; protected set; }
-
-        public bool IsSelected
-        {
-            get
-            {
-                return this.isSelected;
-            }
-
-            set
-            {
-                this.isSelected = value;
-
-                if (this.isSelected)
-                {
-                    foreach (var feature in features)
-                    {
-                        feature.SelectedState = Enums.FeatureSelectedState.SelectedState.Selected;
-                    }
-                }
-                else
-                {
-                    foreach (var feature in features)
-                    {
-                        feature.SelectedState = Enums.FeatureSelectedState.SelectedState.Unselected;
-                    }
-                }
-
-                this.NotifyPropertyChanged();
-            }
-        }
 
         public Package(string id, string displayName)
         {
             this.ID = id;
             this.DisplayName = displayName;
-            this.isSelected = true; // Probably want to set to false in the future and programmatically determine if it should be true
             this.features = new List<IFeature>();
         }
 
@@ -88,20 +55,11 @@ namespace MaxBootstrap.Core.Packages
             set
             {
                 this.requestedState = value;
-
-                // TODO Reconsider this, I mean is this really the best approach?
-                if (this.requestedState == RequestState.Present)
-                {
-                    this.IsSelected = true;
-                }
             }
         }
 
         public void AddFeature(IFeature feature)
         {
-            // TODO Consider putting in some safety checks?
-            feature.OnFeatureStateChange += (featureState) => this.OnSubFeatureSelectedStateChange(feature, featureState);
-
             this.features.Add(feature);
         }
 
@@ -127,33 +85,6 @@ namespace MaxBootstrap.Core.Packages
             }
 
             return foundFeature;
-        }
-
-        private void OnSubFeatureSelectedStateChange(IFeature feature, FeatureSelectedState.SelectedState selectedState)
-        {
-            switch (selectedState)
-            {
-                case FeatureSelectedState.SelectedState.Selected:
-                    {
-                        this.IsSelected = true;
-
-                        break;
-                    }
-
-                case FeatureSelectedState.SelectedState.Partial:
-                    {
-                        this.IsSelected = true;
-
-                        break;
-                    }
-
-                case FeatureSelectedState.SelectedState.Unselected:
-                    {
-                        this.IsSelected = false;
-
-                        break;
-                    }
-            }
         }
     }
 }

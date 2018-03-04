@@ -9,28 +9,27 @@ namespace MaxBootstrap.UI.Converters
     using System.ComponentModel;
     using System.Globalization;
     using System.Windows.Data;
-
-    using Core.Enums;
+    using static MaxBootstrap.UI.Views.Features.FeatureViewmodel;
 
     public class FeatureStateToNullableBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var featureState = (FeatureSelectedState.SelectedState)value;
+            var featureState = (SelectedState)value;
 
             switch (featureState)
             {
-                case FeatureSelectedState.SelectedState.Selected:
+                case SelectedState.Selected:
                     {
                         return true;
                     }
 
-                case FeatureSelectedState.SelectedState.Partial:
+                case SelectedState.Partial:
                     {
                         return null;
                     }
 
-                case FeatureSelectedState.SelectedState.Unselected:
+                case SelectedState.Unselected:
                     {
                         return false;
                     }
@@ -50,16 +49,16 @@ namespace MaxBootstrap.UI.Converters
             {
                 if (nullabeBool.Value)
                 {
-                    return FeatureSelectedState.SelectedState.Selected;
+                    return SelectedState.Selected;
                 }
                 else
                 {
-                    return FeatureSelectedState.SelectedState.Unselected;
+                    return SelectedState.Unselected;
                 }
             }
             else
             {
-                return FeatureSelectedState.SelectedState.Partial;
+                return SelectedState.Partial;
             }
         }
     }

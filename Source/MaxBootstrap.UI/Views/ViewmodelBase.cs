@@ -3,7 +3,7 @@ using MaxBootstrap.Core.View;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MaxBootstrap.UI.Viewmodels
+namespace MaxBootstrap.UI.Views
 {
     public abstract class ViewmodelBase : IViewmodel, INotifyPropertyChanged
     {

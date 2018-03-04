@@ -1,5 +1,4 @@
 ﻿using MaxBootstrap.Core;
-using MaxBootstrap.UI.Viewmodels;
 
 namespace MaxBootstrap.UI.Views.Cancel
 {

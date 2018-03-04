@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MaxBootstrap.Core;
 using MaxBootstrap.UI.Models;
-using MaxBootstrap.UI.Viewmodels;
 
 namespace MaxBootstrap.UI.Views.Configuration
 {

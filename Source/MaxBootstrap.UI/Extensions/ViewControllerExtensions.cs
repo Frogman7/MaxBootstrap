@@ -2,7 +2,7 @@
 using MaxBootstrap.Core.View;
 using MaxBootstrap.UI.Views.Cancel;
 using MaxBootstrap.UI.Views.Error;
-using MaxBootstrap.UI.Views.Feature;
+using MaxBootstrap.UI.Views.Features;
 using MaxBootstrap.UI.Views.Finish;
 using MaxBootstrap.UI.Views.Progress;
 using MaxBootstrap.UI.Views.Welcome;
@@ -35,11 +35,11 @@ namespace MaxBootstrap.UI.Extensions
 
         public static void SetDefaultInstallSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<FeatureView>(new FeatureViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<FeaturesView>(new FeaturesViewmodel(bootstrapperController));
             viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
             viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
 
-            viewController.ViewCollection.SetInstallSequence(new List<string>() { nameof(FeatureView), nameof(ProgressView), nameof(FinishView) });
+            viewController.ViewCollection.SetInstallSequence(new List<string>() { nameof(FeaturesView), nameof(ProgressView), nameof(FinishView) });
         }
 
         public static void SetDefaultUninstallSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
@@ -52,7 +52,7 @@ namespace MaxBootstrap.UI.Extensions
 
         public static void SetDefaultUpgradeSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<FeatureView>(new FeatureViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<FeaturesView>(new FeaturesViewmodel(bootstrapperController));
             viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
             viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
 
@@ -61,7 +61,7 @@ namespace MaxBootstrap.UI.Extensions
 
         public static void SetDefaultModifySequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<FeatureView>(new FeatureViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<FeaturesView>(new FeaturesViewmodel(bootstrapperController));
             viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
             viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
 

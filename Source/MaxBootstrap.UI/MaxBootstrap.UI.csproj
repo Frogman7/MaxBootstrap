@@ -59,7 +59,9 @@
     <Compile Include="CustomControls\DialogHost.cs" />
     <Compile Include="Extensions\ViewControllerExtensions.cs" />
     <Compile Include="Models\ConfigurationItem.cs" />
-    <Compile Include="Viewmodels\ViewmodelBase.cs" />
+    <Compile Include="Views\Features\FeatureViewmodel.cs" />
+    <Compile Include="Views\Features\PackageViewmodel.cs" />
+    <Compile Include="Views\ViewmodelBase.cs" />
     <!--<Compile Include="Pages\CancelPage.cs" />
     <Compile Include="Pages\ConfigurationPage.cs" />
     <Compile Include="Pages\ErrorPage.cs" />
@@ -84,12 +86,12 @@
     <Compile Include="Views\Cancel\CancelViewmodel.cs" />
     <Compile Include="Views\Configuration\ConfigurationViewmodel.cs" />
     <Compile Include="Views\Error\ErrorViewmodel.cs" />
-    <Compile Include="Views\Features\FeatureViewmodel.cs" />
+    <Compile Include="Views\Features\FeaturesViewmodel.cs" />
     <Compile Include="Views\Finish\FinishViewmodel.cs" />
     <Compile Include="Views\Cancel\ICancelViewmodel.cs" />
     <Compile Include="Views\Configuration\IConfigurationViewmodel.cs" />
     <Compile Include="Views\Error\IErrorViewmodel.cs" />
-    <Compile Include="Views\Features\IFeatureViewmodel.cs" />
+    <Compile Include="Views\Features\IFeaturesViewmodel.cs" />
     <Compile Include="Views\Finish\IFinishViewmodel.cs" />
     <Compile Include="Views\Options\IOptionsViewmodel.cs" />
     <Compile Include="Views\Progress\IProgressViewmodel.cs" />
@@ -106,8 +108,8 @@
     <Compile Include="Views\Error\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Features\FeatureView.xaml.cs">
-      <DependentUpon>FeatureView.xaml</DependentUpon>
+    <Compile Include="Views\Features\FeaturesView.xaml.cs">
+      <DependentUpon>FeaturesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Finish\FinishView.xaml.cs">
       <DependentUpon>FinishView.xaml</DependentUpon>
@@ -151,7 +153,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Features\FeatureView.xaml">
+    <Page Include="Views\Features\FeaturesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

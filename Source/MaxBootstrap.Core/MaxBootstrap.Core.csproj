@@ -65,7 +65,6 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Enums\BurnInstallationState.cs" />
     <Compile Include="Enums\FeatureEnums.cs" />
-    <Compile Include="Enums\FeatureSelectedState.cs" />
     <Compile Include="Enums\InstallationResult.cs" />
     <Compile Include="Enums\Sequence.cs" />
     <Compile Include="Helpers\PackageFeatureTreeBuilder.cs" />

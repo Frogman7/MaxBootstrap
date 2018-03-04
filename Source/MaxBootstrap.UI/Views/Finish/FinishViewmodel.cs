@@ -1,5 +1,4 @@
 ﻿using MaxBootstrap.Core;
-using MaxBootstrap.UI.Viewmodels;
 using System;
 
 namespace MaxBootstrap.UI.Views.Finish
