@@ -8,43 +8,53 @@ namespace MaxBootstrap.Core.View
 
         public bool MaintainInstance { get; set; }
 
-        private readonly IViewmodel viewmodel;
+        private IViewmodel viewmodelInstance;
 
-        private IView instance;
+        private IView view;
 
-        public ViewActivator(Type pageType, IViewmodel viewmodel, bool maintainInstance = false)
+        private IBootstrapperController bootstrapperController;
+
+        public ViewActivator(Type pageType, IView view, IBootstrapperController bootstrapperController, bool maintainInstance = false)
         {
             this.MaintainInstance = maintainInstance;
 
-            if (pageType.IsInterface)
+            if (pageType == null)
             {
-                // TODO Throw is interface exception
+                throw new ArgumentNullException(nameof(pageType));
             }
-            else if (pageType.IsAbstract)
+            else if (view == null)
             {
-                // TODO Throw is abstract exception
+                throw new ArgumentNullException(nameof(view));
             }
-            else if (!typeof(IView).IsAssignableFrom(pageType))
+            else if (bootstrapperController == null)
             {
-                // TODO Throw must inherit from IPage
+                throw new ArgumentNullException(nameof(bootstrapperController));
+            }
+            else if (pageType.IsInterface || pageType.IsAbstract)
+            {
+                throw new ArgumentException("Must be a concrete implementation", nameof(pageType));
+            }
+            else if (!typeof(IViewmodel).IsAssignableFrom(pageType))
+            {
+                throw new ArgumentException("Must implement " + nameof(IViewmodel), nameof(pageType));
             }
             else
             {
                 this.ConcretePageType = pageType;
-                this.viewmodel = viewmodel;
+                this.view = view;
             }
         }
 
-        public IView GetInstance()
+        public IViewmodel GetInstance()
         {
-            if (this.MaintainInstance && this.instance != null)
+            if (this.MaintainInstance && this.viewmodelInstance != null)
             {
-                return this.instance;
+                return this.viewmodelInstance;
             }
              
-            this.instance = Activator.CreateInstance(this.ConcretePageType, this.viewmodel) as IView;
+            this.viewmodelInstance = Activator.CreateInstance(this.ConcretePageType, this.bootstrapperController, this.view) as IViewmodel;
 
-            return this.instance;
+            return this.viewmodelInstance;
         }
     }
 }

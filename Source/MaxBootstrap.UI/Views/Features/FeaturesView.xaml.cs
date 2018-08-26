@@ -9,13 +9,9 @@
     /// </summary>
     public partial class FeaturesView : UserControl, IView
     {
-        public FeaturesView(IFeaturesViewmodel featureViewmodel)
+        public FeaturesView()
         {
             this.InitializeComponent();
-
-            this.Viewmodel = featureViewmodel;
-
-            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

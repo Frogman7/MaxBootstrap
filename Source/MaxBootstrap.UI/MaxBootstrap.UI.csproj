@@ -61,6 +61,11 @@
     <Compile Include="Models\ConfigurationItem.cs" />
     <Compile Include="Views\Features\FeatureViewmodel.cs" />
     <Compile Include="Views\Features\PackageViewmodel.cs" />
+    <Compile Include="Views\Commit\ICommitViewmodel.cs" />
+    <Compile Include="Views\Commit\CommitView.xaml.cs">
+      <DependentUpon>CommitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Commit\CommitViewmodel.cs" />
     <Compile Include="Views\ViewmodelBase.cs" />
     <!--<Compile Include="Pages\CancelPage.cs" />
     <Compile Include="Pages\ConfigurationPage.cs" />
@@ -158,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Finish\FinishView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Commit\CommitView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,7 +20,7 @@ namespace MaxBootstrap.Core.View.MainWindow
         {
             get
             {
-                return this.BootstrapperController.ViewController.CurrentView as FrameworkElement;
+                return this.BootstrapperController.ViewController.CurrentViewmodel.View as FrameworkElement;
             }
         }
     }

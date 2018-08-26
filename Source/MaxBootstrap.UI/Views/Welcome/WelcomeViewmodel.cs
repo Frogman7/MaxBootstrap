@@ -1,4 +1,5 @@
 ﻿using MaxBootstrap.Core;
+using MaxBootstrap.Core.View;
 
 namespace MaxBootstrap.UI.Views.Welcome
 {
@@ -20,8 +21,8 @@ namespace MaxBootstrap.UI.Views.Welcome
         // The name of the variable that the Wix Burn engine will use to specify the installation directory.
         private string burnInstallationDirectoryVariable;
 
-        public WelcomeViewmodel(IBootstrapperController bootstrapperController)
-            : base(bootstrapperController)
+        public WelcomeViewmodel(IBootstrapperController bootstrapperController, IView view)
+            : base(bootstrapperController, view)
         {
         }
     }

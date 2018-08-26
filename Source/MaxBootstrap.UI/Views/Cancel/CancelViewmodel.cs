@@ -1,17 +1,19 @@
 ﻿using MaxBootstrap.Core;
+using MaxBootstrap.Core.View;
 
 namespace MaxBootstrap.UI.Views.Cancel
 {
     public class CancelViewmodel : ViewmodelBase, ICancelViewmodel
     {
-        public CancelViewmodel(IBootstrapperController bootstrapperController) : base(bootstrapperController)
+        public CancelViewmodel(IBootstrapperController bootstrapperController, IView view) :
+            base(bootstrapperController, view)
         {
             this.CancelledText = "Installation was cancelled by the user";
         }
 
         public string CancelledText { get; }
 
-        public override void Activate()
+        public override void OnNavigatedTo()
         {
             this.BootstrapperController.ViewController.ButtonStateManager.CancelButton.Visible = false;
             this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Text = "Finish";

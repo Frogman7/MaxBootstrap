@@ -1,4 +1,5 @@
 ﻿using MaxBootstrap.Core;
+using MaxBootstrap.Core.View;
 using System;
 
 namespace MaxBootstrap.UI.Views.Finish
@@ -14,13 +15,13 @@ namespace MaxBootstrap.UI.Views.Finish
 
         public string RestartRequiredText { get; set; }
 
-        public FinishViewmodel(IBootstrapperController bootstrapperController)
-            : base(bootstrapperController)
+        public FinishViewmodel(IBootstrapperController bootstrapperController, IView view)
+            : base(bootstrapperController, view)
         {
-            this.FinishedText = "Installation Fished Successfully";
+            this.FinishedText = "Installation Finished Successfully";
         }
 
-        public override void Activate()
+        public override void OnNavigatedTo()
         {
             this.BootstrapperController.ViewController.ButtonStateManager.CancelButton.Enabled = false;
 

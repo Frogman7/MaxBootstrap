@@ -20,8 +20,6 @@ namespace MaxBootstrap.UI.Views.Features
 
         protected SelectedState selectedState;
 
-        //public bool Enabled { get => this.Feature. }
-
         public FeatureViewmodel(IFeature feature)
         {
             this.Feature = feature;

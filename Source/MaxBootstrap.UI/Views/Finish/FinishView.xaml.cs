@@ -8,13 +8,9 @@ namespace MaxBootstrap.UI.Views.Finish
     /// </summary>
     public partial class FinishView : UserControl, IView
     {
-        public FinishView(IFinishViewmodel viewmodel)
+        public FinishView()
         {
             this.InitializeComponent();
-
-            this.Viewmodel = viewmodel;
-
-            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

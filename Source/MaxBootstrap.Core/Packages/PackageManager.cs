@@ -35,7 +35,7 @@ namespace MaxBootstrap.Core.Packages
 
         public IPackage FindPackageById(string id)
         {
-            if (this.packageDictionary.ContainsKey(id))
+            if (!string.IsNullOrEmpty(id) && this.packageDictionary.ContainsKey(id))
             {
                 return this.packageDictionary[id];
             }

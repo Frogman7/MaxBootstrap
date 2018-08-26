@@ -1,6 +1,7 @@
 ﻿using MaxBootstrap.Core;
 using MaxBootstrap.Core.View;
 using MaxBootstrap.UI.Views.Cancel;
+using MaxBootstrap.UI.Views.Commit;
 using MaxBootstrap.UI.Views.Error;
 using MaxBootstrap.UI.Views.Features;
 using MaxBootstrap.UI.Views.Finish;
@@ -14,66 +15,71 @@ namespace MaxBootstrap.UI.Extensions
     {
         public static void SetDefaultStartPage(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<WelcomeView>(new WelcomeViewmodel(bootstrapperController), true);
+            viewController.ViewCollection.RegisterView<WelcomeViewmodel>(new WelcomeViewmodel(bootstrapperController, new WelcomeView()));
 
-            viewController.ViewCollection.StartPage = "WelcomeView";
+            viewController.ViewCollection.StartPage = nameof(WelcomeViewmodel);
         }
 
         public static void SetDefaultCancelPage(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<CancelView>(new CancelViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<CancelViewmodel>(new CancelViewmodel(bootstrapperController, new CancelView()));
 
-            viewController.ViewCollection.CancelPage = "CancelView";
+            viewController.ViewCollection.CancelPage = nameof(CancelViewmodel);
         }
 
         public static void SetDefaultErrorPage(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<ErrorView>(new ErrorViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<ErrorViewmodel>(new ErrorViewmodel(bootstrapperController, new ErrorView()));
 
-            viewController.ViewCollection.ErrorPage = nameof(ErrorView);
+            viewController.ViewCollection.ErrorPage = nameof(ErrorViewmodel);
         }
 
         public static void SetDefaultInstallSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<FeaturesView>(new FeaturesViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<FeaturesViewmodel>(new FeaturesViewmodel(bootstrapperController, new FeaturesView()));
+            viewController.ViewCollection.RegisterView<CommitViewmodel>(new CommitViewmodel(bootstrapperController, new CommitView()));
+            viewController.ViewCollection.RegisterView<ProgressViewmodel>(new ProgressViewmodel(bootstrapperController, new ProgressView()));
+            viewController.ViewCollection.RegisterView<FinishViewmodel>(new FinishViewmodel(bootstrapperController, new FinishView()));
 
-            viewController.ViewCollection.SetInstallSequence(new List<string>() { nameof(FeaturesView), nameof(ProgressView), nameof(FinishView) });
+            viewController.ViewCollection.SetInstallSequence(new List<string>() { nameof(FeaturesViewmodel), nameof(CommitViewmodel), nameof(ProgressViewmodel), nameof(FinishViewmodel) });
         }
 
         public static void SetDefaultUninstallSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<CommitViewmodel>(new CommitViewmodel(bootstrapperController, new CommitView()));
+            viewController.ViewCollection.RegisterView<ProgressViewmodel>(new ProgressViewmodel(bootstrapperController, new ProgressView()));
+            viewController.ViewCollection.RegisterView<FinishViewmodel>(new FinishViewmodel(bootstrapperController, new FinishView()));
 
-            viewController.ViewCollection.SetUninstallSequence(new List<string>() { "ProgressView", "FinishView" });
+            viewController.ViewCollection.SetUninstallSequence(new List<string>() { nameof(ProgressViewmodel), nameof(FinishViewmodel) });
         }
 
         public static void SetDefaultUpgradeSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<FeaturesView>(new FeaturesViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<FeaturesViewmodel>(new FeaturesViewmodel(bootstrapperController, new FeaturesView()));
+            viewController.ViewCollection.RegisterView<CommitViewmodel>(new CommitViewmodel(bootstrapperController, new CommitView()));
+            viewController.ViewCollection.RegisterView<ProgressViewmodel>(new ProgressViewmodel(bootstrapperController, new ProgressView()));
+            viewController.ViewCollection.RegisterView<FinishViewmodel>(new FinishViewmodel(bootstrapperController, new FinishView()));
 
-            viewController.ViewCollection.SetUpgradeSequence(new List<string>() { "FeatureView", "ProgressView", "FinishView" });
+            viewController.ViewCollection.SetUpgradeSequence(new List<string>() { nameof(FeaturesViewmodel), nameof(CommitViewmodel), nameof(ProgressViewmodel), nameof(FinishViewmodel) });
         }
 
         public static void SetDefaultModifySequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<FeaturesView>(new FeaturesViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<FeaturesViewmodel>(new FeaturesViewmodel(bootstrapperController, new FeaturesView()));
+            viewController.ViewCollection.RegisterView<CommitViewmodel>(new CommitViewmodel(bootstrapperController, new CommitView()));
+            viewController.ViewCollection.RegisterView<ProgressViewmodel>(new ProgressViewmodel(bootstrapperController, new ProgressView()));
+            viewController.ViewCollection.RegisterView<FinishViewmodel>(new FinishViewmodel(bootstrapperController, new FinishView()));
 
-            viewController.ViewCollection.SetModifySequence(new List<string>() { "FeatureView", "ProgressView", "FinishView" });
+            viewController.ViewCollection.SetModifySequence(new List<string>() { nameof(FeaturesViewmodel), nameof(CommitViewmodel), nameof(ProgressViewmodel), nameof(FinishViewmodel) });
         }
 
         public static void SetDefaultRepairSequence(this IViewController viewController, IBootstrapperController bootstrapperController)
         {
-            viewController.ViewCollection.RegisterView<ProgressView>(new ProgressViewmodel(bootstrapperController));
-            viewController.ViewCollection.RegisterView<FinishView>(new FinishViewmodel(bootstrapperController));
+            viewController.ViewCollection.RegisterView<CommitViewmodel>(new CommitViewmodel(bootstrapperController, new CommitView()));
+            viewController.ViewCollection.RegisterView<ProgressViewmodel>(new ProgressViewmodel(bootstrapperController, new ProgressView()));
+            viewController.ViewCollection.RegisterView<FinishViewmodel>(new FinishViewmodel(bootstrapperController, new FinishView()));
 
-            viewController.ViewCollection.SetRepairSequence(new List<string>() { "ProgressView", "FinishView" });
+            viewController.ViewCollection.SetRepairSequence(new List<string>() { nameof(ProgressViewmodel), nameof(FinishViewmodel) });
         }
 
         public static void SetDefaultSequences(this IViewController viewController, IBootstrapperController bootstrapperController)

@@ -35,7 +35,7 @@
         <TreeView ItemsSource="{Binding Packages}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Features}" ItemTemplate="{StaticResource FeatureTemplate}" DataType="{x:Type local:PackageViewmodel}">
-                    <CheckBox Content="{Binding Package.DisplayName}" IsChecked="{Binding Selected}" />
+                    <CheckBox Content="{Binding Package.DisplayName}" IsChecked="{Binding Selected}" IsEnabled="{Binding Enabled}"/>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

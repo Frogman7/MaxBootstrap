@@ -1,5 +1,7 @@
 ﻿using MaxBootstrap.Core;
+using MaxBootstrap.Core.View;
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -13,19 +15,19 @@ namespace MaxBootstrap.UI.Views.Progress
 
         public string CurrentPackageName { get; protected set; }
 
-        public ProgressViewmodel(IBootstrapperController bootstrapperController)
-            : base(bootstrapperController)
+        public ProgressViewmodel(IBootstrapperController bootstrapperController, IView view)
+            : base(bootstrapperController, view)
         {
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public override void Activate()
+        public override void OnNavigatedTo()
         {
-            this.BootstrapperController.WixBootstrapper.CacheAcquireProgress += (sender, args) => this.CacheAcquireProgress(args);
-            this.BootstrapperController.WixBootstrapper.ExecuteProgress += (sender, args) => this.ExecuteProgress(args);
-            this.BootstrapperController.WixBootstrapper.ExecutePackageBegin += (sender, args) => this.ExecutePackageBegin(args);
-            this.BootstrapperController.WixBootstrapper.PlanComplete += (sender, args) => this.PlanComplete(args);
+            this.BootstrapperController.WixBootstrapper.CacheAcquireProgress += this.CacheAcquireProgress;
+            this.BootstrapperController.WixBootstrapper.ExecuteProgress += this.ExecuteProgress;
+            this.BootstrapperController.WixBootstrapper.ExecutePackageBegin += this.ExecutePackageBegin;
+            this.BootstrapperController.WixBootstrapper.PlanComplete += this.PlanComplete;
 
             this.BootstrapperController.ViewController.ButtonStateManager.BackButton.Visible = false;
             this.BootstrapperController.ViewController.ButtonStateManager.CancelButton.Visible = true;
@@ -34,12 +36,20 @@ namespace MaxBootstrap.UI.Views.Progress
             this.BootstrapperController.WixBootstrapper.Engine.Plan(this.BootstrapperController.LaunchAction);
         }
 
-        private void CacheAcquireProgress(CacheAcquireProgressEventArgs args)
+        public override void OnNavigatedFrom()
+        {
+            this.BootstrapperController.WixBootstrapper.CacheAcquireProgress -= this.CacheAcquireProgress;
+            this.BootstrapperController.WixBootstrapper.ExecuteProgress -= this.ExecuteProgress;
+            this.BootstrapperController.WixBootstrapper.ExecutePackageBegin -= this.ExecutePackageBegin;
+            this.BootstrapperController.WixBootstrapper.PlanComplete -= this.PlanComplete;
+        }
+
+        private void CacheAcquireProgress(object sender, CacheAcquireProgressEventArgs args)
         {
 
         }
 
-        private void ExecutePackageBegin(ExecutePackageBeginEventArgs args)
+        private void ExecutePackageBegin(object sender, ExecutePackageBeginEventArgs args)
         {
             var package = this.BootstrapperController.PackageManager.FindPackageById(args.PackageId);
 
@@ -49,7 +59,7 @@ namespace MaxBootstrap.UI.Views.Progress
             this.NotifyPropertyChanged(nameof(this.PackageProgress));
         }
 
-        private void ExecuteProgress(ExecuteProgressEventArgs args)
+        private void ExecuteProgress(object sender, ExecuteProgressEventArgs args)
         {
             this.PackageProgress = (ushort)args.ProgressPercentage;
 
@@ -60,7 +70,7 @@ namespace MaxBootstrap.UI.Views.Progress
             this.NotifyPropertyChanged(nameof(this.TotalProgress));
         }
 
-        private void PlanComplete(PlanCompleteEventArgs args)
+        private void PlanComplete(object sender, PlanCompleteEventArgs args)
         {
             if (args.Status >= 0)
             {

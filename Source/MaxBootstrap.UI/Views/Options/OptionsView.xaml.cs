@@ -14,7 +14,7 @@ namespace MaxBootstrap.UI.Views.Options
 
             this.Viewmodel = viewmodel;
 
-            this.Viewmodel.Activate();
+            this.Viewmodel.OnNavigatedTo();
         }
 
         public IViewmodel Viewmodel

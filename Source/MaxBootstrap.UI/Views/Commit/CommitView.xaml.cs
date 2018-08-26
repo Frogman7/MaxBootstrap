@@ -1,16 +1,16 @@
-﻿namespace MaxBootstrap.UI.Views.Error
-{
-    using System.Windows.Controls;
-    using Core.View;
+﻿using MaxBootstrap.Core.View;
+using System.Windows.Controls;
 
+namespace MaxBootstrap.UI.Views.Commit
+{
     /// <summary>
-    /// Interaction logic for ErrorView.xaml
+    /// Interaction logic for InstallView.xaml
     /// </summary>
-    public partial class ErrorView : UserControl, IView
+    public partial class CommitView : UserControl, IView
     {
-        public ErrorView()
+        public CommitView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public IViewmodel Viewmodel

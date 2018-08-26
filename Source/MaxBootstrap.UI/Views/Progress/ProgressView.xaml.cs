@@ -8,13 +8,9 @@ namespace MaxBootstrap.UI.Views.Progress
     /// </summary>
     public partial class ProgressView : UserControl, IView
     {
-        public ProgressView(IProgressViewmodel progressViewmodel)
+        public ProgressView()
         {
             this.InitializeComponent();
-
-            this.Viewmodel = progressViewmodel;
-
-            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

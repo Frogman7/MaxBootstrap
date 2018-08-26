@@ -7,13 +7,9 @@
     /// </summary>
     public partial class CancelView : IView
     {
-        public CancelView(ICancelViewmodel viewmodel)
+        public CancelView()
         {
             this.InitializeComponent();
-
-            this.Viewmodel = viewmodel;
-
-            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

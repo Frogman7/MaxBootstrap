@@ -6,6 +6,8 @@
 
         IBootstrapperController BootstrapperController { get; }
 
-        void Activate();
+        void OnNavigatedTo();
+
+        void OnNavigatedFrom();
     }
 }

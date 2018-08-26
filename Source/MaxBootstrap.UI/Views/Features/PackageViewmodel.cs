@@ -1,6 +1,8 @@
 ﻿using MaxBootstrap.Core;
 using MaxBootstrap.Core.Packages;
+using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MaxBootstrap.UI.Views.Features
 {
@@ -9,6 +11,9 @@ namespace MaxBootstrap.UI.Views.Features
         public IPackage Package { get; }
 
         public IEnumerable<FeatureViewmodel> Features { get => this.features; }
+
+        // TODO Put more thought into this considering some of the other states
+        public bool Enabled { get => this.Package.PackageState != PackageState.Present; }
 
         protected IList<FeatureViewmodel> features;
 
@@ -30,6 +35,13 @@ namespace MaxBootstrap.UI.Views.Features
 
                     this.features.Add(featureViewmodel);
                 }
+            }
+
+            if (this.Package.PackageState == PackageState.Present ||
+                this.features.Any(feature => (feature.State == FeatureViewmodel.SelectedState.Selected) || 
+                                             (feature.State == FeatureViewmodel.SelectedState.Partial)))
+            {
+                this.selected = true;
             }
         }
 

@@ -112,7 +112,10 @@ namespace MaxBootstrap.Core
                 case Sequence.Upgrade:
                     {
                         // TODO Verify this is correct
-                        this.LaunchAction = LaunchAction.UpdateReplace;
+                        // this.LaunchAction = LaunchAction.UpdateReplace;
+
+                        this.LaunchAction = LaunchAction.Install;
+
                         break;
                     }
                 case Sequence.Repair:
@@ -254,6 +257,7 @@ namespace MaxBootstrap.Core
         {
             if (eventArgs.Operation == RelatedOperation.MajorUpgrade || eventArgs.Operation == RelatedOperation.MinorUpdate)
             {
+                this.ViewController.ButtonStateManager.InstallButton.Visible = false;
                 this.ViewController.ButtonStateManager.UpgradeButton.Visible = true;
             }
         }

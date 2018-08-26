@@ -8,13 +8,9 @@ namespace MaxBootstrap.UI.Views.Welcome
     /// </summary>
     public partial class WelcomeView : UserControl, IView
     {
-        public WelcomeView(IWelcomeViewmodel welcomeViewmodel)
+        public WelcomeView()
         {
             this.InitializeComponent();
-
-            this.Viewmodel = welcomeViewmodel;
-
-            this.Viewmodel.Activate();
         }
 
         public IViewmodel Viewmodel

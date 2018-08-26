@@ -7,13 +7,13 @@ namespace MaxBootstrap.Core.View
     {
         event Action<Sequence> SequenceStarted;
 
-        event Action<IView> ViewChange;
+        event Action<IViewmodel> ViewChange;
 
         ViewCollection ViewCollection { get; }
 
         ButtonStateManager ButtonStateManager { get; }
 
-        IView CurrentView { get; }
+        IViewmodel CurrentViewmodel { get; }
 
         void GoNext();
 

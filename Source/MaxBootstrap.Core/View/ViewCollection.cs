@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MaxBootstrap.Core.View
 {
     public class ViewCollection
     {
-        private readonly IDictionary<string, ViewActivator> viewActivatorDictionary;
+        private readonly IDictionary<string, IViewmodel> viewmodelDictionary;
 
         private IList<string> installSequence;
 
@@ -24,7 +25,8 @@ namespace MaxBootstrap.Core.View
 
         public ViewCollection()
         {
-            this.viewActivatorDictionary = new Dictionary<string, ViewActivator>();
+            this.viewmodelDictionary = new Dictionary<string, IViewmodel>();
+
             this.installSequence = new List<string>();
             this.uninstallSequence = new List<string>();
             this.upgradeSequence = new List<string>();
@@ -32,34 +34,31 @@ namespace MaxBootstrap.Core.View
             this.repairSequence = new List<string>();
         }
 
-        public IView GetView(string pageID)
+        public IViewmodel GetViewmodel(string viewmodelID)
         {
-            if (string.IsNullOrEmpty(pageID))
+            if (string.IsNullOrEmpty(viewmodelID))
             {
-                // TODO throw error or something
-                return null;
+                throw new ArgumentException("Viewmodel with given ID could not be found", nameof(viewmodelID));
             }
 
-            if (this.viewActivatorDictionary.ContainsKey(pageID))
+            if (!this.viewmodelDictionary.ContainsKey(viewmodelID))
             {
-                return this.viewActivatorDictionary[pageID].GetInstance();
+                throw new KeyNotFoundException("Viewmodel with viewmodel ID '" + viewmodelID + '\'');
             }
 
-            // TODO Throw exception or at least log
-
-            return null;
+            return this.viewmodelDictionary[viewmodelID];
         }
 
-        public void RegisterView<TPageConcrete>(IViewmodel viewmodel, bool maintainInstance = false)
+        public void RegisterView<TPageConcrete>(IViewmodel viewmodel)
         {
-            this.RegisterView<TPageConcrete>(typeof(TPageConcrete).Name, viewmodel, maintainInstance);
+            this.RegisterView<TPageConcrete>(typeof(TPageConcrete).Name, viewmodel);
         }
 
-        public void RegisterView<TPageConcrete>(string pageID, IViewmodel viewmodel, bool maintainInstance = false)
+        public void RegisterView<TPageConcrete>(string pageID, IViewmodel viewmodel)
         {
-            if (!this.viewActivatorDictionary.ContainsKey(pageID))
+            if (!this.viewmodelDictionary.ContainsKey(pageID))
             {
-                this.viewActivatorDictionary[pageID] = new ViewActivator(typeof(TPageConcrete), viewmodel, maintainInstance);
+                this.viewmodelDictionary.Add(pageID, viewmodel);
             }
         }
 
@@ -128,17 +127,17 @@ namespace MaxBootstrap.Core.View
             }
         }
 
-        private void SetSequence(IEnumerable<string> sequence, IList<string> pageList)
+        private void SetSequence(IEnumerable<string> sequence, IList<string> viewmodelList)
         {
-            foreach (var pageName in sequence)
+            foreach (var viewmodelID in sequence)
             {
-                if (this.viewActivatorDictionary.ContainsKey(pageName))
+                if (this.viewmodelDictionary.ContainsKey(viewmodelID))
                 {
-                    pageList.Add(pageName);
+                    viewmodelList.Add(viewmodelID);
                 }
                 else
                 {
-                    // TODO Thow exception or something
+                    throw new KeyNotFoundException("Viewmodel required by sequence with page ID '" + viewmodelID + "' not found");
                 }
             }
         }

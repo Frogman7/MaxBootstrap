@@ -2,6 +2,6 @@
 {
     public interface IView
     {
-        IViewmodel Viewmodel { get; }
+        IViewmodel Viewmodel { get; set; }
     }
 }

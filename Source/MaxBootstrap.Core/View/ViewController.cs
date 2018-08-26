@@ -11,23 +11,23 @@ namespace MaxBootstrap.Core.View
     {
         public event Action<Sequence> SequenceStarted;
 
-        public event Action<IView> ViewChange;
+        public event Action<IViewmodel> ViewChange;
 
         public ButtonStateManager ButtonStateManager { get; protected set; }
 
         private IList<string> sequence;
 
-        private IView currentView;
+        private IViewmodel currentView;
 
         private ushort sequenceIndex;
 
-        public IView CurrentView
+        public IViewmodel CurrentViewmodel
         {
             get
             {
                 if (this.currentView == null)
                 {
-                    this.currentView = this.ViewCollection.GetView(this.ViewCollection.StartPage);
+                    this.currentView = this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage);
                 }
 
                 return this.currentView;
@@ -49,7 +49,12 @@ namespace MaxBootstrap.Core.View
         public ViewController(ViewCollection pageCollection)
         {
             this.ViewCollection = pageCollection;
-            this.CurrentView = this.ViewCollection.GetView(this.ViewCollection.StartPage);
+
+            if (!string.IsNullOrEmpty(this.ViewCollection.StartPage))
+            {
+                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage);
+            }
+
             this.ButtonStateManager = new ButtonStateManager();
 
             this.ButtonStateManager.NextButton.Command = new DelegateCommand(this.GoNext);
@@ -66,12 +71,12 @@ namespace MaxBootstrap.Core.View
         {
             if (this.sequenceIndex > 0)
             {
-                this.CurrentView = this.ViewCollection.GetView(this.sequence[--this.sequenceIndex]);
+                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.sequence[--this.sequenceIndex]);
             }
             else if (this.sequenceIndex == 0)
             {
                 // TODO Consider maybe exiting instead of going all the way back to start
-                this.CurrentView = this.ViewCollection.GetView(this.ViewCollection.StartPage);
+                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage);
 
                 this.ButtonStateManager.BackButton.Visible = false;
             }
@@ -83,7 +88,15 @@ namespace MaxBootstrap.Core.View
         {
             if (this.sequenceIndex < this.sequence.Count)
             {
-                this.CurrentView = this.ViewCollection.GetView(this.sequence[++this.sequenceIndex]);
+                this.sequenceIndex++;
+
+                // Tell the current view that we're navigating away from it
+                this.CurrentViewmodel.OnNavigatedFrom();
+
+                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.sequence[this.sequenceIndex]);
+
+                // Tell the new view we've just navigated to it
+                this.CurrentViewmodel.OnNavigatedTo();
             }
 
             // TODO Throw error of some kind on else condition
@@ -116,12 +129,20 @@ namespace MaxBootstrap.Core.View
 
         public void GoToErrorView()
         {
-            this.CurrentView = this.ViewCollection.GetView(this.ViewCollection.ErrorPage);
+            this.CurrentViewmodel.OnNavigatedFrom();
+
+            this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.ErrorPage);
+
+            this.CurrentViewmodel.OnNavigatedTo();
         }
 
         public void GoToCancelView()
         {
-            this.CurrentView = this.ViewCollection.GetView(this.ViewCollection.CancelPage);
+            this.CurrentViewmodel.OnNavigatedFrom();
+
+            this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.CancelPage);
+
+            this.CurrentViewmodel.OnNavigatedTo();
         }
 
         private void StartSequence(Sequence sequence)
@@ -170,12 +191,14 @@ namespace MaxBootstrap.Core.View
                     }
             }
 
-            if (this.SequenceStarted != null)
-            {
-                this.SequenceStarted(sequence);
-            }
+            // Notifies that a sequence selection has been made and set
+            this.SequenceStarted?.Invoke(sequence);
 
-            this.CurrentView = this.ViewCollection.GetView(this.sequence[0]);
+            this.CurrentViewmodel?.OnNavigatedFrom();
+
+            this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.sequence[0]);
+
+            this.CurrentViewmodel.OnNavigatedTo();
         }
     }
 }
