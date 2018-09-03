@@ -6,7 +6,7 @@
         xmlns:view="clr-namespace:MaxBootstrap.Core.View.MainWindow;assembly=MaxBootstrap.Core"
         xmlns:customControls="clr-namespace:MaxBootstrap.UI.CustomControls;assembly=MaxBootstrap.UI"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance view:IBootstrapperMainWindowViewmodel}"
-        Title="Installation Window" Height="400" Width="400">
+        Title="{Binding Title}" Height="400" Width="400">
     
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -23,55 +23,66 @@
                 <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black">
                     <ContentControl Content="{Binding CurrentView}"/>
                 </Border>
-                <DockPanel Grid.Row="1" LastChildFill="False">
+                <DockPanel Grid.Row="1" LastChildFill="False" Background="LightGray">
                     <DockPanel.Resources>
                         <Style TargetType="Button">
                             <Setter Property="FontFamily" Value="Verdana"/>
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="Width" Value="100"/>
+                            <Setter Property="Background" Value="LightBlue"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border CornerRadius="3" BorderBrush="Black" BorderThickness="1"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </DockPanel.Resources>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Left"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Left" Background="LightSlateGray"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Left"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.BackButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Left" Background="LightSlateGray"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Right"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Right"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Right"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Right"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Right"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.NextButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Right"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Right"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.RepairButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Right"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Right"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.UpgradeButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Right"/>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Text}"
-                    Command="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Command}"
-                    IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Enabled}" 
-                    Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    DockPanel.Dock="Right"/>
+                        Command="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Command}"
+                        IsEnabled="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Enabled}" 
+                        Visibility="{Binding BootstrapperController.ViewController.ButtonStateManager.InstallButton.Visible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DockPanel.Dock="Right"/>
                 </DockPanel>
             </Grid>
         </customControls:DialogHost.HostContent>

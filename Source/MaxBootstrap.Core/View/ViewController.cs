@@ -28,6 +28,7 @@ namespace MaxBootstrap.Core.View
                 if (this.currentView == null)
                 {
                     this.currentView = this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage);
+                    this.currentView.OnNavigatedTo();
                 }
 
                 return this.currentView;
@@ -53,6 +54,7 @@ namespace MaxBootstrap.Core.View
             if (!string.IsNullOrEmpty(this.ViewCollection.StartPage))
             {
                 this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage);
+                this.CurrentViewmodel.OnNavigatedTo();
             }
 
             this.ButtonStateManager = new ButtonStateManager();
@@ -71,14 +73,12 @@ namespace MaxBootstrap.Core.View
         {
             if (this.sequenceIndex > 0)
             {
-                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.sequence[--this.sequenceIndex]);
+                this.Navigate(this.ViewCollection.GetViewmodel(this.sequence[--this.sequenceIndex]));
             }
             else if (this.sequenceIndex == 0)
             {
                 // TODO Consider maybe exiting instead of going all the way back to start
-                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage);
-
-                this.ButtonStateManager.BackButton.Visible = false;
+                this.Navigate(this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage));
             }
 
             // TODO Throw error of some kind on else condition
@@ -90,13 +90,7 @@ namespace MaxBootstrap.Core.View
             {
                 this.sequenceIndex++;
 
-                // Tell the current view that we're navigating away from it
-                this.CurrentViewmodel.OnNavigatedFrom();
-
-                this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.sequence[this.sequenceIndex]);
-
-                // Tell the new view we've just navigated to it
-                this.CurrentViewmodel.OnNavigatedTo();
+                this.Navigate(this.ViewCollection.GetViewmodel(this.sequence[this.sequenceIndex]));
             }
 
             // TODO Throw error of some kind on else condition
@@ -198,6 +192,17 @@ namespace MaxBootstrap.Core.View
 
             this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.sequence[0]);
 
+            this.CurrentViewmodel.OnNavigatedTo();
+        }
+
+        private void Navigate(IViewmodel view)
+        {
+            // Tell the current view that we're navigating away from it
+            this.CurrentViewmodel.OnNavigatedFrom();
+
+            this.CurrentViewmodel = view;
+
+            // Tell the new view we've just navigated to it
             this.CurrentViewmodel.OnNavigatedTo();
         }
     }

@@ -15,9 +15,7 @@
         {
             this.bootstrapperController = bootstrapperController;
 
-            IBootstrapperMainWindowViewmodel viewModel = new BootstrapperMainWindowViewmodel(bootstrapperController);
-
-            this.Viewmodel = viewModel;
+            this.Viewmodel = new BootstrapperMainWindowViewmodel(bootstrapperController);
 
             this.InitializeViewController();
 

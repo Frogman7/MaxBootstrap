@@ -6,9 +6,13 @@ namespace MaxBootstrap.Core.View.MainWindow
     {
         public IBootstrapperController BootstrapperController { get; protected set; }
 
+        public string Title { get; set; }
+
         public BootstrapperMainWindowViewmodel(IBootstrapperController bootstrapperController)
         {
             this.BootstrapperController = bootstrapperController;
+
+            this.Title = this.BootstrapperController.WixBootstrapper.Engine.StringVariables["WixBundleName"];
 
             BootstrapperController.ViewController.ViewChange += (view) => 
             {

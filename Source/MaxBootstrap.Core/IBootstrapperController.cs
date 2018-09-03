@@ -24,6 +24,8 @@ namespace MaxBootstrap.Core
 
         LaunchAction LaunchAction { get; }
 
+        BurnInstallState BurnInstallState { get; }
+
         InstallationResult InstallationResult { get; }
 
         bool RestartRequired { get; }

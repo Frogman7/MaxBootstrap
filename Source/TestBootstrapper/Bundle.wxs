@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:net="http://schemas.microsoft.com/wix/NetFxExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:net="http://schemas.microsoft.com/wix/NetFxExtension"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
 	<Bundle Name="TestBootstrapper" Version="1.0.0.0" Manufacturer="Max" UpgradeCode="d66af14b-ba4c-4161-8e0c-66ef2ce2c999">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost">
+      <Payload SourceFile="License.rtf"/>
       <Payload SourceFile="BootstrapperCore.config"/>
       <Payload SourceFile="$(var.MaxBootstrap.Core.TargetPath)"/>
       <Payload SourceFile="$(var.MaxBootstrap.UI.TargetPath)"/>

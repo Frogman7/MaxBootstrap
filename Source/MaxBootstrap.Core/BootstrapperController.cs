@@ -285,17 +285,10 @@ namespace MaxBootstrap.Core
             if (eventArgs.Installed)
             {
                 this.BurnInstallState = BurnInstallState.Present;
-
-                // TODO Have a way for a user to easily enable/disable these buttons
-                this.ViewController.ButtonStateManager.UninstallButton.Visible = true;
-                this.ViewController.ButtonStateManager.RepairButton.Visible = true;
-                this.ViewController.ButtonStateManager.ModifyButton.Visible = true;
             }
             else
             {
                 this.BurnInstallState = BurnInstallState.NotPresent;
-
-                this.ViewController.ButtonStateManager.InstallButton.Visible = true;
             }
         }
     }

@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid>
-            <TextBlock Text="{Binding CommitMessage}" FontSize="28" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding CommitMessage}" FontSize="28" TextAlignment="Center" TextWrapping="Wrap" Margin="10,0,10,0"/>
         </Grid>
     </Grid>
 </UserControl>

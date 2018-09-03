@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BootstrapperCore.config" />
+    <Content Include="License.rtf" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
