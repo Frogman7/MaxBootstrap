@@ -32,5 +32,7 @@ namespace MaxBootstrap.Core.View
         void GoToErrorView();
 
         void GoToCancelView();
+
+        void InstallStageChange(InstallerStage installStage);
     }
 }

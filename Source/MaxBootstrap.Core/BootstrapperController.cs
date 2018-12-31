@@ -16,8 +16,6 @@ namespace MaxBootstrap.Core
 
         public IntPtr WindowHandle { get; set; }
 
-        public BurnInstallState BurnInstallState { get; protected set; }
-
         public IViewController ViewController { get; protected set; }
 
         public bool RestartRequired { get; protected set; }
@@ -26,19 +24,19 @@ namespace MaxBootstrap.Core
 
         public int FinalResult { get; protected set; }
 
-        public string Error { get; protected set;  }
+        public string Error { get; protected set; }
 
         public bool Cancelled { get; protected set; }
 
         public bool UpgradeDetected { get; protected set; }
-
-        public bool PreviouslyInstalled { get; protected set; }
 
         public InstallationResult InstallationResult { get; protected set; }
 
         public IPackageManager PackageManager { get; protected set; }
 
         public LaunchAction LaunchAction { get; protected set; }
+
+        public bool Installed { get; protected set; }
 
         public BootstrapperController(MaxBootstrapper wixBootstrapper, IViewController viewController, IPackageManager packageManager)
         {
@@ -61,6 +59,7 @@ namespace MaxBootstrap.Core
             this.WixBootstrapper.DetectUpdate += (sender, eventArgs) => this.DetectUpdate(eventArgs);
             this.WixBootstrapper.DetectMsiFeature += (sender, eventArgs) => this.DetectMsiFeature(eventArgs);
             this.WixBootstrapper.DetectPackageComplete += (sender, eventArgs) => this.DetectPackageComplete(eventArgs);
+            this.WixBootstrapper.DetectComplete += (sedner, eventArgs) => this.DetectComplete(eventArgs);
 
             this.WixBootstrapper.PlanPackageBegin += (sender, eventArgs) => this.PlanPackageBegin(eventArgs);
             this.WixBootstrapper.PlanPackageComplete += (sender, eventArgs) => this.PlanPackageComplete(eventArgs);
@@ -142,7 +141,7 @@ namespace MaxBootstrap.Core
 
         private void PlanBegin(PlanBeginEventArgs eventArgs)
         {
-            // IDK
+            this.ViewController.InstallStageChange(InstallerStage.Processing);
         }
 
         private void PlanComplete(PlanCompleteEventArgs eventArgs)
@@ -209,6 +208,8 @@ namespace MaxBootstrap.Core
                     this.RestartRequired = true;
                 }
 
+                this.ViewController.InstallStageChange(InstallerStage.Finished);
+
                 this.WixBootstrapper.BootstrapperDispatcher.BeginInvoke(new Action(() => this.ViewController.GoNext()));
             }
         }
@@ -220,7 +221,8 @@ namespace MaxBootstrap.Core
 
         private void ErrorEcountered(ErrorEventArgs eventArgs)
         {
-            // Handle error condition
+            this.ViewController.GoToErrorView();
+
         }
 
         private void Shutdown(ShutdownEventArgs eventArgs)
@@ -257,8 +259,7 @@ namespace MaxBootstrap.Core
         {
             if (eventArgs.Operation == RelatedOperation.MajorUpgrade || eventArgs.Operation == RelatedOperation.MinorUpdate)
             {
-                this.ViewController.ButtonStateManager.InstallButton.Visible = false;
-                this.ViewController.ButtonStateManager.UpgradeButton.Visible = true;
+                this.UpgradeDetected = true;
             }
         }
 
@@ -282,13 +283,31 @@ namespace MaxBootstrap.Core
         /// </param>
         private void DetectBegin(DetectBeginEventArgs eventArgs)
         {
-            if (eventArgs.Installed)
+            this.Installed = eventArgs.Installed;
+        }
+
+        /// <summary>
+        /// Fired when detection completes.
+        /// </summary>
+        /// <param name="eventArgs">
+        /// The <see cref="DetectCompleteEventArgs"/> instance containing the event data.
+        /// </param>
+        private void DetectComplete(DetectCompleteEventArgs eventArgs)
+        {
+            if (this.Installed)
             {
-                this.BurnInstallState = BurnInstallState.Present;
+                if (this.UpgradeDetected)
+                {
+                    this.ViewController.InstallStageChange(InstallerStage.StartupUpgrade);
+                }
+                else
+                {
+                    this.ViewController.InstallStageChange(InstallerStage.StartupPresent);
+                }
             }
             else
             {
-                this.BurnInstallState = BurnInstallState.NotPresent;
+                this.ViewController.InstallStageChange(InstallerStage.StartupNotPresent);
             }
         }
     }

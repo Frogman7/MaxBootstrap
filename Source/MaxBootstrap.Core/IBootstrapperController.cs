@@ -18,13 +18,11 @@ namespace MaxBootstrap.Core
 
         bool Cancelled { get; }
 
+        bool Installed { get; }
+
         bool UpgradeDetected { get; }
 
-        bool PreviouslyInstalled { get; }
-
         LaunchAction LaunchAction { get; }
-
-        BurnInstallState BurnInstallState { get; }
 
         InstallationResult InstallationResult { get; }
 

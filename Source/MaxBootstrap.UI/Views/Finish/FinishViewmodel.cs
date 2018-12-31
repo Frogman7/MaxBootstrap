@@ -1,5 +1,6 @@
 ﻿using MaxBootstrap.Core;
 using MaxBootstrap.Core.View;
+using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using System;
 
 namespace MaxBootstrap.UI.Views.Finish
@@ -18,17 +19,12 @@ namespace MaxBootstrap.UI.Views.Finish
         public FinishViewmodel(IBootstrapperController bootstrapperController, IView view)
             : base(bootstrapperController, view)
         {
-            this.FinishedText = "Installation Finished Successfully";
         }
 
         public override void OnNavigatedTo()
         {
-            this.BootstrapperController.ViewController.ButtonStateManager.CancelButton.Enabled = false;
-
-            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Text = "Finish";
-            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Visible = true;
-            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Enabled = true;
-            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Command = new DelegateCommand(() => { Environment.Exit(0); });
+            this.FinishedText = this.BootstrapperController.LaunchAction.ToString() + " finished successfully";
+            this.NotifyPropertyChanged(nameof(this.FinishedText));
         }
     }
 }

@@ -41,6 +41,11 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
                     </DockPanel.Resources>
                     <Button Content="{Binding BootstrapperController.ViewController.ButtonStateManager.CancelButton.Text}"

@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="TestMSI" Language="1033" Version="1.0.0.0" Manufacturer="Max" UpgradeCode="ad2f0c64-632a-4361-8cf2-3c4dc03bc1a3">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <Product Id="*" Name="TestMSI" Language="1033" Version="1.0.0.0" Manufacturer="Max" UpgradeCode="ad2f0c64-632a-4361-8cf2-3c4dc03bc1a3">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate EmbedCab="yes"/>
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
 
-		<Feature Id="ProductFeature" Title="TestMSI" Level="1">
+    <CustomAction Id="Delay" ExeCommand="timeout 15 /nobreak" Directory="INSTALLFOLDER" Execute="deferred" Return="check"/>
+
+    <Feature Id="ProductFeature" Title="TestMSI" Level="1">
       <Feature Id="Extras" Title="Extra Text File" Description="An Extra text file for you" Level="2" Display="expand" Absent="disallow">
         <ComponentGroupRef Id="ExtraComponents"/>
       </Feature>
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="TestMSI" />
-			</Directory>
-		</Directory>
-	</Fragment>
+    <InstallExecuteSequence>
+      <Custom Action="Delay" After="InstallFiles">NOT Installed</Custom>
+    </InstallExecuteSequence>
+  </Product>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<Component Id="InstallFileComponent" Guid="85B6C95B-8865-4760-84B2-829A861BFCE3">
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Test Installer Application" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="InstallFileComponent" Guid="9B13F022-C295-4269-AAFB-E4EFFA56CF11">
         <File Source="TextFile.txt"/>
       </Component>
-		</ComponentGroup>
+    </ComponentGroup>
     <ComponentGroup Id="ExtraComponents" Directory="INSTALLFOLDER">
-      <Component Id="ExtraTextComponent" Guid="21F2444B-B8A1-458C-8240-43A8E74F67BD">
+      <Component Id="ExtraTextComponent" Guid="8825CD14-BC20-41E6-8D39-B9DEE67DF39A">
         <File Source="ExtraTextFile.txt"/>
       </Component>
     </ComponentGroup>
-	</Fragment>
+  </Fragment>
 </Wix>

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MaxBootstrap.Core.Enums;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace MaxBootstrap.Core.View
@@ -46,6 +47,88 @@ namespace MaxBootstrap.Core.View
             buttonStateList.Add(this.NextButton);
 
             return buttonStateList.GetEnumerator();
+        }
+
+        public virtual void ChangeState(InstallerStage stage)
+        {
+            switch (stage)
+            {
+                case InstallerStage.Initializing:
+                    {
+                        this.BackButton.Visible = false;
+                        this.NextButton.Visible = false;
+                        this.CancelButton.Visible = false;
+                        this.InstallButton.Visible = false;
+                        this.UninstallButton.Visible = false;
+                        this.UpgradeButton.Visible = false;
+                        this.ModifyButton.Visible = false;
+                        this.RepairButton.Visible = false;
+
+                        break;
+                    }
+                case InstallerStage.StartupNotPresent:
+                    {
+                        this.InstallButton.Visible = true;
+
+                        break;
+                    }
+                case InstallerStage.StartupPresent:
+                    {
+                        this.UninstallButton.Visible = true;
+                        this.ModifyButton.Visible = true;
+                        this.RepairButton.Visible = true;
+                        this.RepairButton.Enabled = false;
+
+                        break;
+                    }
+                case InstallerStage.StartupUpgrade:
+                    {
+                        this.UpgradeButton.Visible = true;
+
+                        break;
+                    }
+                case InstallerStage.Configuration:
+                    {
+                        this.InstallButton.Visible = false;
+                        this.UninstallButton.Visible = false;
+                        this.ModifyButton.Visible = false;
+                        this.RepairButton.Visible = false;
+                        this.UpgradeButton.Visible = false;
+
+                        this.NextButton.Visible = true;
+                        this.BackButton.Visible = true;
+
+                        break;
+                    }
+                case InstallerStage.Processing:
+                    {
+                        this.BackButton.Visible = false;
+                        this.CancelButton.Visible = true;
+                        this.NextButton.Enabled = false;
+
+                        break;
+                    }
+                case InstallerStage.Finished:
+                    {
+                        this.CancelButton.Visible = false;
+
+                        this.NextButton.Text = "Finish";
+                        this.NextButton.Visible = true;
+                        this.NextButton.Enabled = true;
+                        this.NextButton.Command = new UI.DelegateCommand(() => { System.Environment.Exit(0); });
+
+                        break;
+                    }
+                case InstallerStage.Error:
+                    {
+                        this.CancelButton.Visible = false;
+
+                        this.NextButton.Text = "Exit";
+                        this.NextButton.Enabled = true;
+
+                        break;
+                    }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

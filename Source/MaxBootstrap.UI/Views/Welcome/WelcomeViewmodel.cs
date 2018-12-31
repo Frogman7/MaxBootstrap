@@ -29,22 +29,5 @@ namespace MaxBootstrap.UI.Views.Welcome
 
             this.LicenseFile = Path.Combine(runningDirectory, DefaultLicenseFilename);
         }
-
-        public override void OnNavigatedTo()
-        {
-            this.BootstrapperController.ViewController.ButtonStateManager.BackButton.Visible = false;
-            this.BootstrapperController.ViewController.ButtonStateManager.NextButton.Visible = false;
-
-            if (this.BootstrapperController.BurnInstallState == Core.Enums.BurnInstallState.Present)
-            {
-                this.BootstrapperController.ViewController.ButtonStateManager.UninstallButton.Visible = true;
-                this.BootstrapperController.ViewController.ButtonStateManager.RepairButton.Visible = true;
-                this.BootstrapperController.ViewController.ButtonStateManager.ModifyButton.Visible = true;
-            }
-            else
-            {
-                this.BootstrapperController.ViewController.ButtonStateManager.InstallButton.Visible = true;
-            }
-        }
     }
 }

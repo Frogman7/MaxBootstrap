@@ -74,11 +74,12 @@ namespace MaxBootstrap.Core.View
             if (this.sequenceIndex > 0)
             {
                 this.Navigate(this.ViewCollection.GetViewmodel(this.sequence[--this.sequenceIndex]));
-            }
-            else if (this.sequenceIndex == 0)
-            {
-                // TODO Consider maybe exiting instead of going all the way back to start
-                this.Navigate(this.ViewCollection.GetViewmodel(this.ViewCollection.StartPage));
+
+                if (this.sequenceIndex == 0)
+                {
+                    this.ButtonStateManager.BackButton.Visible = false;
+                    this.ButtonStateManager.CancelButton.Visible = true;
+                }
             }
 
             // TODO Throw error of some kind on else condition
@@ -88,6 +89,12 @@ namespace MaxBootstrap.Core.View
         {
             if (this.sequenceIndex < this.sequence.Count)
             {
+                if (this.sequenceIndex == 0)
+                {
+                    this.ButtonStateManager.BackButton.Visible = true;
+                    this.ButtonStateManager.CancelButton.Visible = false;
+                }
+
                 this.sequenceIndex++;
 
                 this.Navigate(this.ViewCollection.GetViewmodel(this.sequence[this.sequenceIndex]));
@@ -128,6 +135,8 @@ namespace MaxBootstrap.Core.View
             this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.ErrorPage);
 
             this.CurrentViewmodel.OnNavigatedTo();
+
+            this.InstallStageChange(InstallerStage.Error);
         }
 
         public void GoToCancelView()
@@ -137,18 +146,13 @@ namespace MaxBootstrap.Core.View
             this.CurrentViewmodel = this.ViewCollection.GetViewmodel(this.ViewCollection.CancelPage);
 
             this.CurrentViewmodel.OnNavigatedTo();
+
+            this.InstallStageChange(InstallerStage.Error);
         }
 
         private void StartSequence(Sequence sequence)
         {
-            this.ButtonStateManager.InstallButton.Visible = false;
-            this.ButtonStateManager.UninstallButton.Visible = false;
-            this.ButtonStateManager.ModifyButton.Visible = false;
-            this.ButtonStateManager.UpgradeButton.Visible = false;
-            this.ButtonStateManager.RepairButton.Visible = false;
-
-            this.ButtonStateManager.NextButton.Visible = true;
-            this.ButtonStateManager.BackButton.Visible = true;
+            this.ButtonStateManager.ChangeState(InstallerStage.Configuration);
 
             this.sequenceIndex = 0;
 
@@ -204,6 +208,11 @@ namespace MaxBootstrap.Core.View
 
             // Tell the new view we've just navigated to it
             this.CurrentViewmodel.OnNavigatedTo();
+        }
+
+        public virtual void InstallStageChange(InstallerStage installerStage)
+        {
+            this.ButtonStateManager.ChangeState(installerStage);
         }
     }
 }

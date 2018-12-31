@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxBootstrap.Core", "MaxBootstrap.Core\MaxBootstrap.Core.csproj", "{3A3EF4BD-9521-407C-AC79-E734F3B811E2}"
 EndProject
@@ -37,12 +37,14 @@ Global
 		{958E3D18-DF65-46A1-9288-42E01DD62E95}.Debug|x86.ActiveCfg = Debug|x86
 		{958E3D18-DF65-46A1-9288-42E01DD62E95}.Debug|x86.Build.0 = Debug|x86
 		{958E3D18-DF65-46A1-9288-42E01DD62E95}.Release|Any CPU.ActiveCfg = Release|x86
+		{958E3D18-DF65-46A1-9288-42E01DD62E95}.Release|Any CPU.Build.0 = Release|x86
 		{958E3D18-DF65-46A1-9288-42E01DD62E95}.Release|x86.ActiveCfg = Release|x86
 		{958E3D18-DF65-46A1-9288-42E01DD62E95}.Release|x86.Build.0 = Release|x86
 		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Debug|x86.ActiveCfg = Debug|x86
 		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Debug|x86.Build.0 = Debug|x86
 		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Release|Any CPU.ActiveCfg = Release|x86
+		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Release|Any CPU.Build.0 = Release|x86
 		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Release|x86.ActiveCfg = Release|x86
 		{D66AF14B-BA4C-4161-8E0C-66EF2CE2C999}.Release|x86.Build.0 = Release|x86
 		{3D363840-DA72-4E3B-97DC-36CD9F2A2B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -75,5 +77,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BDE25C5C-9C46-4D24-8788-78614150113C} = {0DC71E74-B0BB-4CF6-B888-BB2518C30A88}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0448DE73-C435-4A38-999E-6ADD0C60E508}
 	EndGlobalSection
 EndGlobal

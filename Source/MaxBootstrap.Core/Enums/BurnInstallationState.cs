@@ -1,13 +1,14 @@
 ﻿namespace MaxBootstrap.Core.Enums
 {
-    public enum BurnInstallState
+    public enum InstallerStage
     {
         Initializing,
-        Present,
-        NotPresent,
-        Newer,
-        Applying,
-        Applied,
-        Failed
+        StartupNotPresent,
+        StartupPresent,
+        StartupUpgrade,
+        Configuration,
+        Processing,
+        Finished,
+        Error
     }
 }
